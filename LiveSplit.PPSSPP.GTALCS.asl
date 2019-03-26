@@ -1,21 +1,29 @@
-//GTA LCS Autosplitter for PPSSPP v1.8.0 64-bit
-//Only tested with v1 American (ULUS10041)
-//By NABN00B
-//Thanks to Patrick
+/* GTA LCS Autosplitter for PPSSPP
+ * Currently only supports PPSSPP v1.8.0 64-bit exe
+ * and v1 American (ULUS10041) version of LCS
+ * By NABN00B
+ * Contributors: zazaza691
+ * Testers: Fryterp23, zazaza691
+ * Thanks to Patrick for early Cheat Engine advice
+ */
 
-state("PPSSPPWindows64") //64-bit version
+state("PPSSPPWindows64") //64-bit version only
 {
-	int missionAttempts : 0xDC8FB0, 0x08b5e1a4; //Mission Attempts Counter
-	int missionPassed : 0xDC8FB0, 0x08b5e1a8; //Mission Passed Counter
-	int hiddenPackages : 0xDC8FB0, 0x09F6C4C4; //Hidden Packages Collected Counter
-	int musicChannel : 0xDC8FB0, 0x08dce71c; //Music Channel ID
+	int missionAttempts : 0xDC8FB0, 0x08B5E1A4; //Mission Attempts Counter
+	int missionPassed : 0xDC8FB0, 0x08B5E1A8; //Mission Passed Counter (not stored in saves)
+	float completionProgress : 0xDC8FB0, 0x08B5E158; //100% Completion Progress Points Counter
+	int hiddenPackages : 0xDC8FB0, 0x8B89AD4; //Hidden Packages Collected Counter
+	int musicChannel : 0xDC8FB0, 0x08DCE71C; //Music Channel ID
 }
 
 startup
 {
 	settings.Add("ma", false, "Mission Attempted");
 	settings.Add("mp", false, "Mission Passed");
+	settings.Add("cp", false, "Progress Made Towards 100% Completion");
 	settings.Add("hp", false, "Hidden Package Collected");
+	settings.Add("hpno2", false, "Don't Split on First Two Packages", "hp"); //Proposed by zazaza691
+	settings.SetToolTip("hpno2", "Provides precise Sum of Best");
 	settings.Add("mc", false, "Music Channel Changed (Test)");
 }
 
@@ -53,24 +61,30 @@ split
 		if (current.missionPassed > old.missionPassed) //Split if counter is increased
 			return true;
 	}
+	if (settings["cp"])
+	{
+		if (current.completionProgress > old.completionProgress) //Split if counter is increased
+			return true;
+	}
 	if (settings["hp"])
 	{
-		//to provide precise Sum of Best (SoB) we start splitting from the third package
-		if (current.hiddenPackages < 3)
-			return false;
 		if (current.hiddenPackages > old.hiddenPackages) //Split if counter is increased
+		{
+			if (settings["hpno2"] && current.hiddenPackages < 3) //Don't split if it's disabled for first 2 packages
+				return false;
 			return true;
+		}
 	}
 	if (settings["mc"])
 	{
-		if (current.musicChannel != old.musicChannel) //Split if music ID is changed
+		if (current.musicChannel != old.musicChannel) //Split if value is changed
 			return true;
 	}
 }
 
 reset
 {
-	if (current.missionAttempts < old.missionAttempts) //Reset if counter is set to 0
+	if (current.missionAttempts < old.missionAttempts && current.missionAttempts == 0) //Reset if counter is set to 0
 	{
 		vars.prevMissionCount = 0;
 		vars.newMissionCount = 0;
