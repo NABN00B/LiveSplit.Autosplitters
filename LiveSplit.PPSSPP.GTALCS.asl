@@ -22,7 +22,8 @@ startup
 	settings.Add("mp", false, "Mission Passed");
 	settings.Add("cp", false, "Progress Made Towards 100% Completion");
 	settings.Add("hp", false, "Hidden Package Collected");
-	settings.Add("hpno2", false, "Don't Split on First Two Packages"); //Proposed by zazaza691
+	settings.Add("hpno2", false, "Don't Split on First Two Packages", "hp"); //Proposed by zazaza691
+	settings.SetToolTip("hpno2", "Provides precise Sum of Best");
 	settings.Add("mc", false, "Music Channel Changed (Test)");
 }
 
