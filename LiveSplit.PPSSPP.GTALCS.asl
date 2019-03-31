@@ -5,6 +5,7 @@
  * Contributors: zazaza691
  * Testers: Fryterp23, zazaza691
  * Thanks to Patrick for early Cheat Engine advice
+ * Thanks to Nick007J for "player doesn't have controls" value
  */
 
 state("PPSSPPWindows64") //64-bit version only
@@ -17,6 +18,7 @@ state("PPSSPPWindows64") //64-bit version only
 	int uniqueStunts : 0xDC8FB0, 0x8B5E19C; //Unique Stunts Completed Counter (text only)
 	int currentIsland: 0xDC8FB0, 0x8B5E354; //Current Island, 1: Portland, 2: Staunton, 3: Shoreside, 4: Subway
 	int seagulls : 0xDC8FB0, 0x8B5E1FC; //Seagulls Sniped Counter
+	uint hasControls : 0xDC8FB0, 0x8B89D26; //track whether player has controls or not
 	int outfitChanges : 0xDC8FB0, 0x8B5E30C; //Outfit Changes Counter
 	int musicChannel : 0xDC8FB0, 0x8DCE71C; //Music Channel ID (overwriting has no effect)
 }
@@ -70,6 +72,12 @@ update
 		if (current.missionsPassed > old.missionsPassed) //Check if player completed a new mission
 			vars.splitMStart = true;
 	}
+}
+
+start
+{
+	if (current.hasControls == 0 && old.hasControls == 32)
+		return true;
 }
 
 split
