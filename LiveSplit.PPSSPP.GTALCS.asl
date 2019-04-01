@@ -1,15 +1,16 @@
 /* GTA Liberty City Stories Autosplitter for PPSSPP
  * Currently only supports PPSSPP v1.8.0 64-bit exe
  * and v1 American (ULUS10041) version of LCS
- * Made by NABN00B
- * Contributors: zazaza691
- * Testers: Fryterp23, zazaza691
- * Thanks to Patrick for early Cheat Engine advice
- * Thanks to Nick007J for "player doesn't have controls" value
+ * Made by NABN00B and zazaza691
+ * Testers: Fryterp23
+ * Thanks to Nick007J for Control Lock values
+ * and Patrick for early Cheat Engine advice
  */
 
 state("PPSSPPWindows64") //64-bit version only
 {
+	uint controlLock : 0xDC8FB0, 0x8B89D26; //Player Control Lock (bit field), values in hex below
+	//0x0: no lock, 0x4: locked by garage service, 0x20: locked by mission script, 0xA0: locked by cinematic cutscene
 	int missionAttempts : 0xDC8FB0, 0x8B5E1A4; //Mission Attempts Counter
 	int missionsPassed : 0xDC8FB0, 0x8B5E1A8; //Missions Passed Counter (not stored in saves)
 	float completionPoints : 0xDC8FB0, 0x8B5E158; //Completion Points Counter
@@ -18,7 +19,6 @@ state("PPSSPPWindows64") //64-bit version only
 	int uniqueStunts : 0xDC8FB0, 0x8B5E19C; //Unique Stunts Completed Counter (text only)
 	int currentIsland: 0xDC8FB0, 0x8B5E354; //Current Island, 1: Portland, 2: Staunton, 3: Shoreside, 4: Subway
 	int seagulls : 0xDC8FB0, 0x8B5E1FC; //Seagulls Sniped Counter
-	uint hasControls : 0xDC8FB0, 0x8B89D26; //track whether player has controls or not
 	int outfitChanges : 0xDC8FB0, 0x8B5E30C; //Outfit Changes Counter
 	int musicChannel : 0xDC8FB0, 0x8DCE71C; //Music Channel ID (overwriting has no effect)
 }
@@ -72,12 +72,6 @@ update
 		if (current.missionsPassed > old.missionsPassed) //Check if player completed a new mission
 			vars.splitMStart = true;
 	}
-}
-
-start
-{
-	if (current.hasControls == 0 && old.hasControls == 32)
-		return true;
 }
 
 split
@@ -149,9 +143,15 @@ split
 
 reset
 {
-	if (current.missionAttempts < old.missionAttempts && current.missionAttempts == 0) //Reset if counter is set to 0
+	if (current.missionAttempts == 0 && current.controlLock == 160) //Reset if counter is set to 0 and control is locked by cutscene
 	{
 		vars.splitMStart = false;
 		return true;
 	}
+}
+
+start
+{
+	if (current.missionAttempts == 1 && current.controlLock == 0 && old.controlLock == 32) //Start if player gains control during the first mission
+		return true;
 }
