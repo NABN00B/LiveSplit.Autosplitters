@@ -1,31 +1,37 @@
 /* GTA Liberty City Stories Autosplitter for PPSSPP
- * Currently only supports PPSSPP v1.8.0 64-bit exe
+ * Currently only supports PPSSPP v1.8.0 64-bit executable
  * and v1 American (ULUS10041) version of LCS
  * Made by NABN00B and zazaza691
  * Testers: Fryterp23
- * Thanks to Nick007J for Control Lock values
- * and Patrick for early Cheat Engine advice
+ * Thanks to Powdinet for Rampage State values and address finding advice,
+ * Nick007J for Control Lock values and Patrick for early Cheat Engine advice
  */
 
 state("PPSSPPWindows64") //64-bit version only
 {
 	uint controlLock : 0xDC8FB0, 0x8B89D26; //Player Control Lock (bit field), values in hex below
 	//0x0: no lock, 0x4: locked by garage service, 0x20: locked by mission script, 0xA0: locked by cinematic cutscene
+	int onMissionFlag : 0xDC8FB0, 0x9F6C4C0; //OnMission Flag ($560)
 	int missionAttempts : 0xDC8FB0, 0x8B5E1A4; //Mission Attempts Counter
 	int missionsPassed : 0xDC8FB0, 0x8B5E1A8; //Missions Passed Counter (not stored in saves)
 	float completionPoints : 0xDC8FB0, 0x8B5E158; //Completion Points Counter
-	int hiddenPackages : 0xDC8FB0, 0x8B89AD4; //Hidden Packages Collected Counter (text only)
-	int rampages: 0xDC8FB0, 0x8B5E1E4; //Rampages Passed Counter (text only)
-	int uniqueStunts : 0xDC8FB0, 0x8B5E19C; //Unique Stunts Completed Counter (text only)
-	int currentIsland: 0xDC8FB0, 0x8B5E354; //Current Island, 1: Portland, 2: Staunton, 3: Shoreside, 4: Subway
-	int seagulls : 0xDC8FB0, 0x8B5E1FC; //Seagulls Sniped Counter
+	
+	int finalBossDefeated : 0xDC8FB0, 0x9F6FD2C; //The Sicilian Gambit Helicopter Boss Defeated
+	
+	int hiddenPackagesFound : 0xDC8FB0, 0x8B89AD4; //Hidden Packages Collected Counter (text only)
+	int rampageState : 0xDC8FB0, 0x8B5E45C; //Rampage State, 1: On Rampage, 2: Rampage Passed, 3: Rampage Failed
+	int rampagesPassed : 0xDC8FB0, 0x8B5E1E4; //Rampages Passed Counter (text only)
+	int uniqueStuntsCompleted : 0xDC8FB0, 0x8B5E19C; //Unique Stunts Completed Counter (text only)
+	int currentIsland : 0xDC8FB0, 0x8B5E354; //Current Island, 1: Portland, 2: Staunton, 3: Shoreside, 4: Subway
+	
+	int seagullsSniped : 0xDC8FB0, 0x8B5E1FC; //Seagulls Sniped Counter
 	int outfitChanges : 0xDC8FB0, 0x8B5E30C; //Outfit Changes Counter
 	int musicChannel : 0xDC8FB0, 0x8DCE71C; //Music Channel ID (overwriting has no effect)
 }
 
 startup
 {
-	refreshRate = 30; //Reduce CPU usage
+	refreshRate = 1000/30; //Reduce CPU usage
 	
 	settings.Add("s_main", true, "Main Splits");
 	settings.Add("mstart", true, "Mission Start", "s_main");
@@ -40,6 +46,8 @@ startup
 	settings.SetToolTip("c_package", "Splits when the Hidden Packages Found counter is increased.");
 	settings.Add("c_packno2", false, "Don't Split on First Two Packages", "c_package"); //Proposed by zazaza691
 	settings.SetToolTip("c_packno2", "Prevents splitting on the first two Hidden Packages. Helps to avoid fake best times using the 49:53 route.");
+	settings.Add("c_rstart", false, "Rampage Start", "s_collect");
+	settings.SetToolTip("c_rstart", "Splits when the Rampage State is set to 1, but only if the Rampages Passed counter is increased between two attempts.");
 	settings.Add("c_rpass", false, "Rampage Pass", "s_collect");
 	settings.SetToolTip("c_rpass", "Splits when the Rampages Passed counter is increased.");
 	settings.Add("c_usj", false, "Unique Stunt Completion", "s_collect");
@@ -48,6 +56,8 @@ startup
 	settings.SetToolTip("c_island", "Splits on the loading screen when entering Staunton Island from Portland, or Shoreside Vale from Staunton Island.");
 	
 	settings.Add("s_final", false, "Final Splits");
+	settings.Add("f_anyfin", false, "Any% Final Split", "s_final");
+	settings.SetToolTip("f_anyfin", "Splits when the player loses control after defeating the final boss.");
 	settings.Add("f_ighundo", false, "Ingame 100% Final Split", "s_final");
 	settings.SetToolTip("f_ighundo", "Splits when the Completion Points counter goes above 170 for the first time.");
 	
@@ -62,7 +72,8 @@ startup
 
 init
 {
-	vars.splitMStart = false;
+	vars.splitMissionStart = false;
+	vars.splitRampageStart = true;
 }
 
 update
@@ -70,7 +81,12 @@ update
 	if (settings["mstart"])
 	{
 		if (current.missionsPassed > old.missionsPassed) //Check if player completed a new mission
-			vars.splitMStart = true;
+			vars.splitMissionStart = true;
+	}
+	if (settings["c_rstart"])
+	{
+		if (current.rampagesPassed > old.rampagesPassed) //Check if player completed a new rampage
+			vars.splitRampageStart = true;
 	}
 }
 
@@ -79,9 +95,9 @@ split
 	if (settings["mstart"])
 	{
 		//Split only if player completed a new mission AND counter is increased
-		if (vars.splitMStart && current.missionAttempts > old.missionAttempts)
+		if (vars.splitMissionStart && current.missionAttempts > old.missionAttempts)
 		{
-			vars.splitMStart = false; //Must complete a mission before we can split again
+			vars.splitMissionStart = false; //Must complete a new mission before we can split again
 			return true;
 		}
 	}
@@ -95,28 +111,45 @@ split
 		if (current.completionPoints > old.completionPoints) //Split if counter is increased
 			return true;
 	}
+	
 	if (settings["c_package"])
 	{
-		if (current.hiddenPackages > old.hiddenPackages) //Split if counter is increased
+		if (current.hiddenPackagesFound > old.hiddenPackagesFound) //Split if counter is increased
 		{
-			if (current.hiddenPackages > 2 || !settings["c_packno2"]) //Don't split if it's disabled for first 2 packages
+			if (current.hiddenPackagesFound > 2 || !settings["c_packno2"]) //Don't split if it's disabled for first 2 packages
 				return true;
+		}
+	}
+	if (settings["c_rstart"])
+	{
+		//Split only if player completed a new rampage AND Rampage State is set to 1
+		if (vars.splitRampageStart && current.rampageState == 1 && old.rampageState != 1)
+		{
+			vars.splitRampageStart = false; //Must complete a new rampage before we can split again
+			return true;
 		}
 	}
 	if (settings["c_rpass"])
 	{
-		if (current.rampages > old.rampages) //Split if counter is increased
+		if (current.rampagesPassed > old.rampagesPassed) //Split if counter is increased
 			return true;
 	}
 	if (settings["c_usj"])
 	{
-		if (current.uniqueStunts > old.uniqueStunts) //Split if counter is increased
+		if (current.uniqueStuntsCompleted > old.uniqueStuntsCompleted) //Split if counter is increased
 			return true;
 	}
 	if (settings["c_island"])
 	{
-		// Split if entering Staunton Island from Portland, or Shoreside Vale from Staunton Island
+		//Split if entering Staunton Island from Portland, or Shoreside Vale from Staunton Island
 		if ((current.currentIsland == 2 && old.currentIsland == 1) || (current.currentIsland == 3 && old.currentIsland == 2))
+			return true;
+	}
+	
+	if (settings["f_anyfin"])
+	{
+		//Split if control is locked by cutscene and final boss is defeated.
+		if (current.finalBossDefeated == 1 && current.controlLock == 32 && old.controlLock == 0 && current.onMissionFlag == 1)
 			return true;
 	}
 	if (settings["f_ighundo"])
@@ -124,9 +157,10 @@ split
 		if (current.completionPoints > 170 && old.completionPoints < 171) //Split if counter goes above 170 for the first time
 			return true;
 	}
+	
 	if (settings["m_gull"])
 	{
-		if (current.seagulls > old.seagulls) //Split if counter is increased
+		if (current.seagullsSniped > old.seagullsSniped) //Split if counter is increased
 			return true;
 	}
 	if (settings["m_outfit"])
@@ -145,13 +179,15 @@ reset
 {
 	if (current.missionAttempts == 0 && current.controlLock == 160) //Reset if counter is set to 0 and control is locked by cutscene
 	{
-		vars.splitMStart = false;
+		vars.splitMissionStart = false;
+		vars.splitRampageStart = true;
 		return true;
 	}
 }
 
 start
 {
-	if (current.missionAttempts == 1 && current.controlLock == 0 && old.controlLock == 32) //Start if player gains control during the first mission
+	//Start if player gains control during the first mission
+	if (current.onMissionFlag == 1 && current.missionAttempts == 1 && current.controlLock == 0 && old.controlLock == 32)
 		return true;
 }
