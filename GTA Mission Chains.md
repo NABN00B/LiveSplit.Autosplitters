@@ -1,9 +1,8 @@
 ## GTA Liberty City Stories
-Based on the MAIN.SCM of PSP v1 American Disc version. Each variable stores the value of the mission to start next in the chain.
-Eg if ($241 == 2) then "Slacker" will be started when you enter Vincenzo's mission marker.
+Based on the MAIN.SCM of the v1 American Disc PSP version. Each variable stores the value for the mission to be started next in the chain. Eg if ($241 == 2) then "Slacker" will be started when you enter Vincenzo's mission marker.
 
 ### Portland
-#### Vincenzo $241 (VICGOV)
+#### Vincenzo Cilli $241 (VICGOV)
 1. Home Sweet Home
 2. Slacker
 3. Dealing Revenge
@@ -12,7 +11,7 @@ Eg if ($241 == 2) then "Slacker" will be started when you enter Vincenzo's missi
 6. Hot Wheels
 7. The Portland Chainsaw Masquerade
 
-#### JD $247 (JDTGOV)
+#### JD O'Toole $247 (JDTGOV)
 1. Bone Voyeur!
 2. Don in 60 Seconds
 3. A Volatile Situation
@@ -22,8 +21,7 @@ Eg if ($241 == 2) then "Slacker" will be started when you enter Vincenzo's missi
 7. Calm before the Storm
 8. The Made Man
 
-If ($247 < 7) and the player is wearing the "Leone's suit" ('PLR'),
-the "I ain't got no work for no Leone." cutscene mission will be started instead.
+If ($247 < 7) and the player is wearing the "Leone's suit" ('PLR'), the "I ain't got no work for no Leone." cutscene mission will be started instead.
 
 #### Ma Cipriani $250 (MACGOV)
 1. Snappy Dresser
@@ -32,7 +30,7 @@ the "I ain't got no work for no Leone." cutscene mission will be started instead
 4. Dead Meat
 5. No Son of Mine
 
-#### Salvatore $244 (SALGOV)
+#### Salvatore Leone $244 (SALGOV)
 1. The Offer
 2. Ho Selecta!
 3. Frighteners
@@ -50,7 +48,7 @@ the "I ain't got no work for no Leone." cutscene mission will be started instead
 5. Overdose of Trouble
 
 ### Staunton Island
-#### Salvatore $296 (SALSGOV)
+#### Salvatore Leone $296 (SALSGOV)
 1. A Walk In The Park
 2. Making Toni
 3. Caught In The Act
@@ -81,16 +79,14 @@ the "I ain't got no work for no Leone." cutscene mission will be started instead
 5. Munitions Dump
 
 ### Shoreside Vale
-#### Salvatore $446 (SALHGOV)
+#### Salvatore Leone $446 (SALHGOV)
 1. Rough Justice
 2. Dead Reckoning
 3. Shogun Showdown
 4. The Shoreside Redemption
 5. The Sicilian Gambit
 
-If ($446 == 1) and the player is not wearing the "Lawyer's suit" ('PLR2'),
-at first the objective to pick up the "Lawyer's suit" will be unlocked instead,
-afterwards player will be told to change into the "Lawyer's suit" instead.
+If ($446 == 1) and the player is not wearing the "Lawyer's suit" ('PLR2'), at first the objective to pick up the "Lawyer's suit" will be unlocked instead, afterwards player will be told to change into the "Lawyer's suit" instead.
 
 #### Donald Love $449 (DONHGOV)
 1. Panlantic Land Grab
@@ -107,3 +103,110 @@ afterwards player will be told to change into the "Lawyer's suit" instead.
 2. Cash Clash
 3. A Date with Death
 4. Cash in Kazuki's Chips
+
+## GTA Vice City Stories
+Based on the MAIN.SCM of the International PSP version. Each variable stores the value for the mission to be started next in the chain when you start a story mission.
+
+Possible candidates for mission chain variables are $6, $18 and $4590, I think all three are arrays.
+The value of the current chapter seems to be stored in the variable $130.
+
+### Chapter 1
+#### Sgt. Jerry Martinez
+1. Soldier
+2. Cleaning House
+3. Conduct Unbecoming
+
+#### Phil Cassidy
+1. Cholo Victory
+2. Boomshine Blowout
+3. Truck Stop
+4. Marked Men
+
+#### Marty-Jay Williams
+1. Shakedown
+2. Fear the Repo
+3. Waking Up the Neighbors
+4. O, Brothel, Where Art Thou?
+5. Got Protection?
+
+#### Louise Cassidy-Williams
+1. When Funday Comes
+2. Takin' Out the White-Trash
+3. D.I.V.O.R.C.E.
+4. To Victor, the Spoils
+
+### Chapter 2
+#### Lance Vance
+1. Jive Drive
+2. The Audition
+3. nothing (removed mission)
+4. Caught as an Act
+5. Snitch Hitch
+6. From Zero to Hero
+
+#### Louise Cassidy-Williams
+1. Hose the Hoes
+2. Robbing the Cradle
+3. nothing (removed mission)
+
+#### Umberto Robina
+1. Nice Package
+2. Balls
+3. Papi Don't Screech
+4. Havana Good Time
+
+#### Bryan Forbes
+1. Money for Nothing
+2. nothing (removed mission)
+3. Leap and Bound
+4. The Bum Deal
+
+### Chapter 3
+#### Lance Vance
+1. Brawn of the Dead
+2. nothing (removed mission)
+3. Blitzkrieg
+4. Turn on, Tune in, Bug out
+5. Taking the Fall
+6. White Lies
+7. Where it Hurts Most
+8. Blitzkrieg Strikes Again
+9. Lost and Found
+10. Light My Pyre
+
+#### Reni Wassulmaier
+1. Accidents Will Happen
+2. The Colonel's Coke
+3. Kill Phil
+4. Say Cheese
+5. Kill Phil: Part 2
+6. So Long Schlong
+7. In The Air Tonight
+
+#### Mendez brothers
+1. The Mugshot Longshot
+2. Hostile Takeover
+3. Unfriendly Competition
+4. nothing (removed mission)
+5. High Wire
+6. Burning Bridges
+
+#### Gonzalez
+1. nothing (removed mission)
+2. Home's on the Range
+3. Purple Haze
+4. Farewell To Arms
+
+#### Ricardo Diaz
+1. Steal the Deal
+2. The Exchange
+3. Domo Arigato Domestoboto
+4. Over the Top
+5. Last Stand
+
+#### Leo Teal
+1. nothing (removed mission)
+2. nothing (removed mission)
+3. nothing (removed mission)
+4. nothing (removed mission)
+5. nothing (removed mission)
