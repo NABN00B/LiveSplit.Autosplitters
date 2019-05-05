@@ -17,11 +17,13 @@ state("PPSSPPWindows64") //64-bit version only
 	float completionPoints : 0xDC8FB0, 0x8B5E158; //Completion Points Counter
 	
 	int finalBossDefeated : 0xDC8FB0, 0x9F6FD2C; //The Sicilian Gambit Helicopter Boss Defeated
+	int missionSalvatoreSsv : 0xDC8FB0, 0x9F6C2F8; //Salvatore Leone Shoreside Vale Mission Chain Counter
+	int missionMaria : 0xDC8FB0, 0x9F6BFF4; //Maria Mission Chain Counter
 	
-	int hiddenPackagesFound : 0xDC8FB0, 0x8B89AD4; //Hidden Packages Collected Counter (text only)
+	int hiddenPackagesFound : 0xDC8FB0, 0x9F6C4C4; //Hidden Packages Found Counter
 	int rampageState : 0xDC8FB0, 0x8B5E45C; //Rampage State, 1: On Rampage, 2: Rampage Passed, 3: Rampage Failed
-	int rampagesPassed : 0xDC8FB0, 0x8B5E1E4; //Rampages Passed Counter (text only)
-	int uniqueStuntsCompleted : 0xDC8FB0, 0x8B5E19C; //Unique Stunts Completed Counter (text only)
+	int rampagesPassed : 0xDC8FB0, 0x9F6E4B0; //Rampages Passed Counter
+	int uniqueStuntsCompleted : 0xDC8FB0, 0x9F6CCD8; //Unique Stunts Completed Counter
 	int currentIsland : 0xDC8FB0, 0x8B5E354; //Current Island, 1: Portland, 2: Staunton, 3: Shoreside, 4: Subway
 	
 	int seagullsSniped : 0xDC8FB0, 0x8B5E1FC; //Seagulls Sniped Counter
@@ -34,12 +36,22 @@ startup
 	refreshRate = 1000/30; //Reduce CPU usage
 	
 	settings.Add("s_main", true, "Main Splits");
-	settings.Add("mstart", true, "Mission Start", "s_main");
-	settings.SetToolTip("mstart", "Splits when the Mission Attempts counter is increased, but only if the Missions Passed counter is increased between two attempts.");
-	settings.Add("mpass", false, "Mission Pass", "s_main");
-	settings.SetToolTip("mpass", "Splits when the Missions Passed counter is increased.");
-	settings.Add("cpoint", false, "100% Completion Progress", "s_main");
-	settings.SetToolTip("cpoint", "Splits when the Completion Points counter is increased.");
+	settings.Add("m_mstart", true, "Mission Start", "s_main");
+	settings.SetToolTip("m_mstart", "Splits when the Mission Attempts counter is increased, but only if the Missions Passed counter is increased between two attempts.");
+	settings.Add("m_mpass", false, "Mission Pass", "s_main");
+	settings.SetToolTip("m_mpass", "Splits when the Missions Passed counter is increased.");
+	settings.Add("m_cpoint", false, "100% Completion Progress", "s_main");
+	settings.SetToolTip("m_cpoint", "Splits when the Completion Points counter is increased.");
+	
+	settings.Add("s_final", false, "Final Splits");
+	settings.Add("f_anyfin", false, "Any% Final Split", "s_final");
+	settings.SetToolTip("f_anyfin", "Splits when the player loses control after defeating the final boss.");
+	settings.Add("f_tsg", false, "The Sicilian Gambit Completion", "s_final");
+	settings.SetToolTip("f_tsg", "Splits when the Salvatore Leone Shoreside Vale Mission Chain Counter goes above 5 for the first time.");
+	settings.Add("f_oot", false, "Overdose of Trouble Completion", "s_final");
+	settings.SetToolTip("f_oot", "Splits when the Maria Mission Chain Counter goes above 5 for the first time.");
+	settings.Add("f_ighundo", false, "Ingame 100% Final Split", "s_final");
+	settings.SetToolTip("f_ighundo", "Splits when the Completion Points counter goes above 170 for the first time.");
 	
 	settings.Add("s_collect", false, "Collectibles");
 	settings.Add("c_package", false, "Hidden Package Collection", "s_collect");
@@ -55,19 +67,13 @@ startup
 	settings.Add("c_island", false, "Next Island", "s_collect");
 	settings.SetToolTip("c_island", "Splits on the loading screen when entering Staunton Island from Portland, or Shoreside Vale from Staunton Island.");
 	
-	settings.Add("s_final", false, "Final Splits");
-	settings.Add("f_anyfin", false, "Any% Final Split", "s_final");
-	settings.SetToolTip("f_anyfin", "Splits when the player loses control after defeating the final boss.");
-	settings.Add("f_ighundo", false, "Ingame 100% Final Split", "s_final");
-	settings.SetToolTip("f_ighundo", "Splits when the Completion Points counter goes above 170 for the first time.");
-	
-	settings.Add("s_memes", false, "Memes");
-	settings.Add("m_gull", false, "Seagull Snipe", "s_memes");
-	settings.SetToolTip("m_gull", "Splits when the Seagulls Sniped counter is increased.");
-	settings.Add("m_outfit", false, "Outfit Change", "s_memes");
-	settings.SetToolTip("m_outfit", "Splits when the Outfit Changes counter is increased.");
-	settings.Add("m_music", false, "Music Channel Change (PoC)", "s_memes");
-	settings.SetToolTip("m_music", "Splits when the Music Channel is changed. Can be used through the Pause Menu to test if the autosplitter is working.");
+	settings.Add("s_misc", false, "Miscellaneous");
+	settings.Add("o_gull", false, "Seagull Snipe", "s_misc");
+	settings.SetToolTip("o_gull", "Splits when the Seagulls Sniped counter is increased.");
+	settings.Add("o_outfit", false, "Outfit Change", "s_misc");
+	settings.SetToolTip("o_outfit", "Splits when the Outfit Changes counter is increased.");
+	settings.Add("o_music", false, "Music Channel Change (PoC)", "s_misc");
+	settings.SetToolTip("o_music", "Splits when the Music Channel is changed. Can be used through the Pause Menu to test if the autosplitter is working.");
 }
 
 init
@@ -78,7 +84,7 @@ init
 
 update
 {
-	if (settings["mstart"])
+	if (settings["m_mstart"])
 	{
 		if (current.missionsPassed > old.missionsPassed) //Check if player completed a new mission
 			vars.splitMissionStart = true;
@@ -92,7 +98,8 @@ update
 
 split
 {
-	if (settings["mstart"])
+	//MAIN SPLITS
+	if (settings["m_mstart"])
 	{
 		//Split only if player completed a new mission AND counter is increased
 		if (vars.splitMissionStart && current.missionAttempts > old.missionAttempts)
@@ -101,17 +108,41 @@ split
 			return true;
 		}
 	}
-	if (settings["mpass"])
+	if (settings["m_mpass"])
 	{
 		if (current.missionsPassed > old.missionsPassed) //Split if counter is increased
 			return true;
 	}
-	if (settings["cpoint"])
+	if (settings["m_cpoint"])
 	{
 		if (current.completionPoints > old.completionPoints) //Split if counter is increased
 			return true;
 	}
 	
+	//FINAL SPLITS
+	if (settings["f_anyfin"])
+	{
+		//Split if control is locked by cutscene and final boss is defeated.
+		if (current.finalBossDefeated == 1 && current.controlLock == 32 && old.controlLock == 0 && current.onMissionFlag == 1)
+			return true;
+	}
+	if (settings["f_tsg"])
+	{
+		if (current.missionSalvatoreSsv > 5 && old.missionSalvatoreSsv < 6) //Split if counter goes above 5 for the first time
+			return true;
+	}
+	if (settings["f_oot"])
+	{
+		if (current.missionMaria > 5 && old.missionMaria < 6) //Split if counter goes above 5 for the first time
+			return true;
+	}
+	if (settings["f_ighundo"])
+	{
+		if (current.completionPoints > 170 && old.completionPoints < 171) //Split if counter goes above 170 for the first time
+			return true;
+	}
+	
+	//COLLECTIBLES
 	if (settings["c_package"])
 	{
 		if (current.hiddenPackagesFound > old.hiddenPackagesFound) //Split if counter is increased
@@ -146,29 +177,18 @@ split
 			return true;
 	}
 	
-	if (settings["f_anyfin"])
-	{
-		//Split if control is locked by cutscene and final boss is defeated.
-		if (current.finalBossDefeated == 1 && current.controlLock == 32 && old.controlLock == 0 && current.onMissionFlag == 1)
-			return true;
-	}
-	if (settings["f_ighundo"])
-	{
-		if (current.completionPoints > 170 && old.completionPoints < 171) //Split if counter goes above 170 for the first time
-			return true;
-	}
-	
-	if (settings["m_gull"])
+	//MISCELLANEOUS
+	if (settings["o_gull"])
 	{
 		if (current.seagullsSniped > old.seagullsSniped) //Split if counter is increased
 			return true;
 	}
-	if (settings["m_outfit"])
+	if (settings["o_outfit"])
 	{
 		if (current.outfitChanges > old.outfitChanges) //Split if counter is increased
 			return true;
 	}
-	if (settings["m_music"])
+	if (settings["o_music"])
 	{
 		if (current.musicChannel != old.musicChannel) //Split if value is changed
 			return true;
