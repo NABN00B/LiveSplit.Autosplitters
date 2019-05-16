@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="28">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"gameLoading"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>8B9289C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"controlLock"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>8B89D26</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"onMissionFlag"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>9F6C4C0</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"missionAttempts"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>8B5E1A4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"missionsPassed"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>8B5E1A8</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"completionPoints"</Description>
+      <VariableType>Float</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>8B5E158</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"finalBossDefeated"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>9F6FD2C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"missionSalvatoreSSV"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>9F6C2F8</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"missionMaria"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>9F6BFF4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"hiddenPackagesFound"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>9F6C4C4</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"rampageState"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>8B5E45C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"rampagesPassed"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>9F6E4B0</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>11</ID>
+      <Description>"uniqueStuntsCompleted"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>9F6CCD8</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"vehiclesDelivered"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>8E41658</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"seagullsSniped"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>8B5E1FC</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"outfitChanges"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>8B5E30C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"currentIsland"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>8B5E354</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"musicChannel"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>8DCE71C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"missionTitle"</Description>
+      <VariableType>String</VariableType>
+      <Length>64</Length>
+      <Unicode>1</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>8B91310</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>19</ID>
+      <Description>"textOutput"</Description>
+      <VariableType>String</VariableType>
+      <Length>64</Length>
+      <Unicode>1</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>8B79C4C</Offset>
+      </Offsets>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

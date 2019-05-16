@@ -1,0 +1,10 @@
+<!-- Run at https://js.do/ or open it in your browser. -->
+<script>
+	var OnMissionFlagOffset = 560;
+	var variables = [0];
+	for (var i = 0; i < variables.length; i++)
+	{
+		var offset = 0x9F6C4C0 - (4 * OnMissionFlagOffset) + (4 * variables[i]);
+			document.write(variables[i] + " --> " + offset.toString(16).toUpperCase() + "<br>");
+	}
+</script>
