@@ -55,8 +55,8 @@ startup
 	settings.Add("m_cpoint", false, "100% Completion Progress Made", "s_main");
 	settings.SetToolTip("m_cpoint", "Splits when the Completion Points counter is increased.");
 	
-	settings.Add("s_final", false, "Final Splits");
-	settings.Add("f_anyfin", false, "Any% Final Split", "s_final");
+	settings.Add("s_final", true, "Final Splits");
+	settings.Add("f_anyfin", true, "Any% Final Split", "s_final");
 	settings.SetToolTip("f_anyfin", "Splits when the player loses control after defeating the final boss.");
 	settings.Add("f_tsg", false, "The Sicilian Gambit Passed", "s_final");
 	settings.SetToolTip("f_tsg", "Splits when the Salvatore Leone Shoreside Mission Chain Counter goes above 5.");
