@@ -29,6 +29,19 @@
       </Offsets>
     </CheatEntry>
     <CheatEntry>
+      <ID>18</ID>
+      <Description>"missionTitle"</Description>
+      <VariableType>String</VariableType>
+      <Length>64</Length>
+      <Unicode>1</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
+      <Offsets>
+        <Offset>8B91310</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
       <ID>2</ID>
       <Description>"missionAttempts"</Description>
       <VariableType>4 Bytes</VariableType>
@@ -161,19 +174,6 @@
       <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
       <Offsets>
         <Offset>8DCE71C</Offset>
-      </Offsets>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>18</ID>
-      <Description>"missionTitle"</Description>
-      <VariableType>String</VariableType>
-      <Length>64</Length>
-      <Unicode>1</Unicode>
-      <CodePage>0</CodePage>
-      <ZeroTerminate>1</ZeroTerminate>
-      <Address>PPSSPPWindows64.exe+0xDC8FB0</Address>
-      <Offsets>
-        <Offset>8B91310</Offset>
       </Offsets>
     </CheatEntry>
     <CheatEntry>
