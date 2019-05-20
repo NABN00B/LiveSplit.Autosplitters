@@ -1,0 +1,104 @@
+VIC1	Home Sweet Home
+VIC2	Slacker
+VIC3	Dealing Revenge
+VIC4	Snuff
+VIC5	Smash and Grab
+VIC6	Hot Wheels
+VIC7	The Portland Chainsaw Masquerade
+JDT1	Bone Voyeur!
+JDT2	Don in 60 Seconds
+JDT3	A Volatile Situation
+JDT4	Blow up 'Dolls'
+JDT5	Salvatore's Salvation
+JDT6	The Guns of Leone
+JDT7	Calm before the Storm
+JDT8	The Made Man
+MAC1	Snappy Dresser
+MAC2	Big Rumble in Little China
+MAC3	Grease Sucho
+MAC4	Dead Meat
+MAC5	No Son of Mine
+SAL1	The Offer
+SAL2	Ho Selecta!
+SAL3	Frighteners
+SAL4	Rollercoaster Ride
+SAL5	Contra-Banned
+SAL6	Sindacco Sabotage
+SAL7	The Trouble with Triads
+SAL8	Driving Mr Leone
+MAR1	Shop 'til you Strop
+MAR2	Taken for a Ride
+MAR3	Booby Prize
+MAR4	Biker Heat
+MAR5	Overdose of Trouble
+SALS1	A Walk In The Park
+SALS2	Making Toni
+SALS3	Caught In The Act
+SALS4	Search And Rescue
+SALS5	Taking The Peace
+SALS6	Shoot The Messenger
+DONS1	The Morgue Party Candidate
+DONS2	Steering The Vote
+DONS3	Cam-Pain
+DONS4	Friggin' The Riggin'
+DONS5	Love & Bullets
+DONS6	Counterfeit Count
+DONS7	Love On The Rocks
+NEDS1	L.C. Confidential
+NEDS2	The Passion Of The Heist
+NEDS3	Karmageddon
+NEDS4	False Idols
+RAYS1	Sayonara Sindaccos
+RAYS2	The Whole 9 Yardies
+RAYS3	Crazy '69'
+RAYS4	Night Of The Livid Dreads
+RAYS5	Munitions Dump
+SALH1	Rough Justice
+SALH2	Dead Reckoning
+SALH3	Shogun Showdown
+SALH4	The Shoreside Redemption
+SALH5	The Sicilian Gambit
+DONH1	Panlantic Land Grab
+DONH2	Stop the Press
+DONH3	Morgue Party Resurrection
+DONH4	No Money, Mo' Problems
+DONH5	Bringing the House Down
+TOSH1	More Deadly than the Male
+TOSH2	Cash Clash
+TOSH3	A Date with Death
+TOSH4	Cash in Kazuki's Chips
+ANG	Avenging Angels
+FIRE_M	'Firefighter'
+AMBUL_M	'Paramedic'
+TAXI_M	'Taxi Driver'
+TRASH1	Trash Dash
+COP_M	'Vigilante'
+BIKE	'Bike Salesman'
+CARS	'Car Salesman'
+NDL1_A	Noodle Punk
+PIZ1_A	Well Snacked Pizza
+RAC1	Low-Rider Rumble
+RAC2	Deimos Dash
+RAC3	Wi-Cheetah Run
+BIK1	Red Light Racing
+BIK2	Torrington TT
+BIK3	Gangsta GP
+BNDRAC0	Thrashin' RC
+BNDRAC1	Ragin' RC
+BNDRAC2	Chasin' RC
+TKR1	9mm Mayhem
+TKR2	Scooter Shooter
+TUSHTK	AWOL Angel
+TT1	'Bumps & Grinds'
+TOUR	See the Sight Before your Flight
+PCJTIT	GO GO Faggio
+NEDS3	Karmageddon
+RCBOMB1	RC Triad Take-Down
+K_TKT	Scrapyard Challenge
+TV_01	Slash TV
+TRTIT	Wong Side Of The Tracks
+RAMPAGE	RAMPAGE
+MPRCS1	Street Rage
+MPTCS1	Tanks for the Memories
+MPHPCS1	The Hit List
+MPWCS1	The Wedding List
