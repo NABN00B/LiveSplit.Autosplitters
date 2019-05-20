@@ -5,6 +5,7 @@
  *   GTA LCS: v1 American (ULUS10041) UMD version (ONLY)
  * Thanks to:
  *   Fryterp23 for continuous testing
+ *   iguana for the idea of splitting when mission titles get displayed
  *   Nick007J for Control Lock values
  *   Patrick for early Cheat Engine advice
  *   Powdinet for Rampage State values and variable/address finding advice
@@ -17,6 +18,7 @@ state("PPSSPPWindows64") //64-bit version only
 	//0 (0x0): no lock, 4 (0x4): locked by garage service, 32 (0x20): locked by mission script, 160 (0xA0): locked by cinematic cutscene
 	int onMissionFlag : 0xDC8FB0, 0x9F6C4C0; //OnMission Flag ($560)
 	
+	string64 missionTitle : 0xDC8FB0, 0x8B91310; //Current Mission Title
 	int missionAttempts : 0xDC8FB0, 0x8B5E1A4; //Mission Attempts Counter
 	int missionsPassed : 0xDC8FB0, 0x8B5E1A8; //Missions Passed Counter (not stored in saves: be careful when comparing!)
 	float completionPoints : 0xDC8FB0, 0x8B5E158; //Completion Points Counter
@@ -38,8 +40,7 @@ state("PPSSPPWindows64") //64-bit version only
 	
 	//NOT USED IN THIS VERSION
 	/*
-	string missionTitle : 0xDC8FB0, 0x8B91310; // Current Mission Title
-	string textOutput : 0xDC8FB0, 0x8B79C4C; // Last Text Output
+	string textOutput : 0xDC8FB0, 0x8B79C4C; //Last Text Output
 	*/
 }
 
@@ -48,8 +49,10 @@ startup
 	refreshRate = 1000/30; //Reduce CPU usage
 	
 	settings.Add("s_main", true, "Main Splits");
-	settings.Add("m_mstart", true, "Mission Attempted", "s_main");
-	settings.SetToolTip("m_mstart", "Splits when the Mission Attempts counter is increased, but only if the Missions Passed counter is increased between two attempts.");
+	settings.Add("m_mtitle", true, "Mission Title Displayed", "s_main");
+	settings.SetToolTip("m_mtitle", "Splits when the Mission Title variable changes, but only if the Missions Passed counter is increased between two attempts.");
+	settings.Add("m_mattempt", false, "Mission Attempted", "s_main");
+	settings.SetToolTip("m_mattempt", "Splits when the Mission Attempts counter is increased, but only if the Missions Passed counter is increased between two attempts.");
 	settings.Add("m_mpass", false, "Mission Passed", "s_main");
 	settings.SetToolTip("m_mpass", "Splits when the Missions Passed counter is increased.");
 	settings.Add("m_cpoint", false, "100% Completion Progress Made", "s_main");
@@ -116,7 +119,7 @@ update
 	}
 	else
 	{
-		if (settings["m_mstart"])
+		if (settings["m_mtitle"] || settings["m_mattempt"])
 		{
 			if (current.missionsPassed > old.missionsPassed) //Check if player completed a new mission
 				vars.splitMissionStart = true;
@@ -155,10 +158,19 @@ split
 	}
 	
 	//MAIN SPLITS
-	if (settings["m_mstart"])
+	if (settings["m_mtitle"])
+	{
+		//Split only if player completed a new mission AND mission title is updated
+		if (current.missionTitle != old.missionTitle && vars.splitMissionStart)
+		{
+			vars.splitMissionStart = false; //Must complete a new mission before we can split again
+			return true;
+		}
+	}
+	if (settings["m_mattempt"])
 	{
 		//Split only if player completed a new mission AND counter is increased
-		if (vars.splitMissionStart && current.missionAttempts > old.missionAttempts)
+		if (current.missionAttempts > old.missionAttempts && vars.splitMissionStart)
 		{
 			vars.splitMissionStart = false; //Must complete a new mission before we can split again
 			return true;
@@ -187,7 +199,7 @@ split
 	if (settings["c_rstart"])
 	{
 		//Split only if player completed a new rampage AND Rampage State is set to 1
-		if (vars.splitRampageStart && current.rampageState == 1 && old.rampageState != 1)
+		if (current.rampageState == 1 && old.rampageState != 1 && vars.splitRampageStart)
 		{
 			vars.splitRampageStart = false; //Must complete a new rampage before we can split again
 			return true;
