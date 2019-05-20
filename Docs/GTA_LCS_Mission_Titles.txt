@@ -63,6 +63,7 @@ DONH2	Stop the Press
 DONH3	Morgue Party Resurrection
 DONH4	No Money, Mo' Problems
 DONH5	Bringing the House Down
+DONH6	Love on the Run
 TOSH1	More Deadly than the Male
 TOSH2	Cash Clash
 TOSH3	A Date with Death
