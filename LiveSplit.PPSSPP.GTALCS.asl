@@ -94,13 +94,19 @@ startup
 	
 	settings.Add("s_lgsp", true, "Load Game Split Prevention");
 	settings.SetToolTip("s_lgsp", "Prevents splitting when loading a save file or restarting the game.");
+	
+	//Initialise autosplitter script variables
+	vars.splitPrevention = true;
+	vars.splitMissionStart = false;
+	vars.splitRampageStart = false;
 }
 
-init
+init { }
+
+exit
 {
-	vars.splitPrevention = false;
-	vars.splitMissionStart = false;
-	vars.splitRampageStart = true;
+	if (settings["s_lgsp"])
+		vars.splitPrevention = true;
 }
 
 update
@@ -248,17 +254,17 @@ split
 reset
 {
 	if (current.missionAttempts == 0 && current.controlLock == 160) //Reset if counter is set to 0 and control is locked by cutscene
-	{
-		vars.splitPrevention = false;
-		vars.splitMissionStart = false;
-		vars.splitRampageStart = true;
 		return true;
-	}
 }
 
 start
 {
 	//Start if player gains control during the first mission
 	if (current.controlLock == 0 && old.controlLock == 32 && current.missionAttempts == 1 && current.onMissionFlag == 1)
+	{
+		vars.splitPrevention = false;
+		vars.splitMissionStart = false;
+		vars.splitRampageStart = true;
 		return true;
+	}
 }
