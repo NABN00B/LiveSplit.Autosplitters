@@ -1,10 +1,20 @@
 <!-- Run at https://js.do/ or open it in your browser. -->
 <script>
-	var OnMissionFlagOffset = 560;
-	var variables = [0];
-	for (var i = 0; i < variables.length; i++)
+	//initialisation
+	var OMFOffsets = new Map
+	([
+		[560, 0x9F6C4C0],	//LCS PSP v1 American UMD
+		[789, 0x9F69054]	//VCS PSP American
+	]);
+	
+	//input
+	var OMFVar = 560;
+	var ScriptVars = [0];
+	
+	//output
+	for (var i = 0; i < ScriptVars.length; i++)
 	{
-		var offset = 0x9F6C4C0 - (4 * OnMissionFlagOffset) + (4 * variables[i]);
-			document.write(variables[i] + " --> " + offset.toString(16).toUpperCase() + "<br>");
+		var offset = OMFOffsets.get(OMFVar) - (4 * OMFVar) + (4 * ScriptVars[i]);
+			document.write(ScriptVars[i] + " --> " + offset.toString(16).toUpperCase() + "<br>");
 	}
 </script>
