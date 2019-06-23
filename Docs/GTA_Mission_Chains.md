@@ -113,7 +113,7 @@ Mission chain counters are stored in the array $6 of size 12. Each element store
 
 The numbers of required missions to be completed in each mission chain are stored in the array $4590 of size 12.
 
-Once an element of $6 (that is required for the current chapter) reaches a value higher than the value of the corresponding element of $4590, the value of the corresponding element of $18 will be set to 1. Eg if `$6[0] > $4590[0]` then `$18[0] = 1`.
+Whether mission chains are completed are stored in array $18 of size 12. Once an element of $6 (that is required for the current chapter) reaches a value higher than the value of the corresponding element of $4590, the value of the corresponding element of $18 will be set to 1. Eg if `$6[0] > $4590[0]` then `$18[0] = 1`.
 
 The value of the current chapter is stored in variable $130. Once all elements of $18 (that are required for the current chapter) are equal to 1, the value of $130 will be incremented and the game progresses into the next chapter (or the credits at the end of Chapter 3).
 
@@ -121,9 +121,7 @@ The value of the current mission chain is stored in variable $2076.
 
 The interesting part of the code begins at '99RED_9559'.
 
-### Chapter 1
-`$130 == 0`
-
+### Chapter 1 (`$130 == 0`)
 #### $6[0] *Sgt. Jerry Martinez* (`$4590[0] == 3`)
 1. Soldier
 2. Cleaning House
@@ -148,9 +146,7 @@ The interesting part of the code begins at '99RED_9559'.
 3. D.I.V.O.R.C.E.
 4. To Victor, the Spoils
 
-### Chapter 2
-`$130 == 1`
-
+### Chapter 2 (`$130 == 1`)
 #### $6[3] *Louise Cassidy-Williams* (`$4590[3] == 3`)
 1. Hose the Hoes
 2. Robbing the Cradle
@@ -178,9 +174,7 @@ Airport's mission is actually part of Lance's Chapter 2 chain.
 3. Leap and Bound
 4. The Bum Deal
 
-### Chapter 3
-`$130 == 2`
-
+### Chapter 3 (`$130 == 2`)
 #### $6[7] *Armando and Diego Mendez* (`$4590[7] == 6`)
 1. The Mugshot Longshot
 2. Hostile Takeover
