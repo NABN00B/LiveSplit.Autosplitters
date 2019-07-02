@@ -1,0 +1,102 @@
+JER_A01	Soldier
+JER_A02	Cleaning House
+JER_A03	Conduct Unbecoming
+PHI_A01	Cholo Victory
+PHI_A02	Boomshine Blowout
+PHI_A03	Truck Stop
+PHI_A04	Marked Men
+MAR_A01	Shakedown
+MAR_A02	Fear the Repo
+MAR_A03	Waking Up the Neighbors
+MAR_A04	O, Brothel, Where Art Thou?
+MAR_A05	Got Protection?
+LOU_A01	When Funday Comes
+LOU_A02	Takin' Out the White-Trash
+LOU_A03	D.I.V.O.R.C.E.
+LOU_A04	To Victor, the Spoils
+LAN_B01	Jive Drive
+LAN_B02	The Audition
+LAN_B03	REMOVED
+LAN_B04	Caught as an Act
+LAN_B05	Snitch Hitch
+LAN_B06	From Zero to Hero
+LOU_B01	Hose the Hoes
+LOU_B02	Robbing the Cradle
+LOU_B03	REMOVED
+UMB_B01	Nice Package
+UMB_B02	Balls
+UMB_B03	Papi Don't Screech
+UMB_B04	Havana Good Time
+BRY_B01	Money for Nothing
+BRY_B02	REMOVED
+BRY_B03	Leap and Bound
+BRY_B04	The Bum Deal
+LAN_C01	Brawn of the Dead
+LAN_C02	Faking It
+LAN_C03	Blitzkrieg
+LAN_C04	Turn on, Tune in, Bug out
+LAN_C05	Taking the Fall
+LAN_C06	White Lies
+LAN_C07	Where it Hurts Most
+LAN_C08	Blitzkrieg Strikes Again
+LAN_C09	Lost and Found
+LAN_C10	Light My Pyre
+REN_C01	Accidents Will Happen
+REN_C02	The Colonel's Coke
+REN_C03	Kill Phil
+REN_C04	Say Cheese
+REN_C05	Kill Phil: Part 2
+REN_C06	So Long Schlong
+REN_C07	In The Air Tonight
+MEN_C01	The Mugshot Longshot
+MEN_C02	Hostile Takeover
+MEN_C03	Unfriendly Competition
+MEN_C04	REMOVED
+MEN_C05	High Wire
+MEN_C06	Burning Bridges
+GON_C01	REMOVED
+GON_C02	Home's on the Range
+GON_C03	Purple Haze
+GON_C04	Farewell To Arms
+DIA_C01	Steal the Deal
+DIA_C02	The Exchange
+DIA_C03	Domo Arigato Domestoboto
+DIA_C04	Over the Top
+DIA_C05	Last Stand
+LEO_C01	REMOVED
+LEO_C02	REMOVED
+LEO_C03	REMOVED
+LEO_C04	REMOVED
+LEO_C05	REMOVED
+E_PR	'Extortion'
+E_RE	'Loan Shark'
+E_PI	'Pimping'
+E_DR	'Drug Running'
+E_SM	'Smuggling'
+E_RO	'Robbery'
+CHOPLIF	'Air Rescue'
+BEA_TIT	'Beach Patrol'
+FIR_TIT	'Fire Copter'
+FIRE_M	'Fire Fighter'
+PARAMED	'Paramedic'
+VIGILAN	'Vigilante'
+TAXIDR	Taxi Driver
+HEL_TIT	'Vice Sights'
+VIGILAN	'Vigilante'
+CR_TIT	'Crash!'
+PC2_TIT	'Playground On The Point'
+PCJ_TIT	'Playground On The Town'
+AIR_TIT	'Crims On Wings'
+HOV_TIT	'Haiti Hover Race'
+HO2_TIT	'Harbor Hover Race'
+MVR_TIT	'Land, Sea And Air Ace'
+BMX_TIT	'Mashin' up the Mall'
+GYR_TIT	'Skywolf'
+TT_BMX	BMX Time Trials
+TT_QUAD	Quad Bike Time Trials
+TT_SAN	Sanchez Time Trials
+TT_JSKI	'Watersports'
+RAC_TIT	Turismo
+SRNG	'Phil's Shooting Range'
+DRIVING	'Swinger's Club'
+RAMPAGE	Rampage!
