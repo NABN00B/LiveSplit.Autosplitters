@@ -42,12 +42,12 @@ The interesting part of the code begins at '99RED_9559'.
 #### $6[3] *Louise Cassidy-Williams* (`$4590[3] == 3`)
 1. Hose the Hoes
 2. Robbing the Cradle
-3. REMOVED
+3. nothing (REMOVED)
 
 #### $6[4] *Lance Vance* (`$4590[4] == 6`)
 1. Jive Drive
 2. The Audition
-3. REMOVED
+3. nothing (REMOVED)
 4. Caught as an Act
 5. Snitch Hitch
 6. From Zero to Hero
@@ -62,7 +62,7 @@ Airport's mission is actually part of Lance's Chapter 2 chain.
 
 #### $6[6] *Bryan Forbes* (`$4590[6] == 4`)
 1. Money for Nothing
-2. REMOVED
+2. nothing (REMOVED)
 3. Leap and Bound
 4. The Bum Deal
 
@@ -71,7 +71,7 @@ Airport's mission is actually part of Lance's Chapter 2 chain.
 1. The Mugshot Longshot
 2. Hostile Takeover
 3. Unfriendly Competition
-4. REMOVED
+4. nothing (REMOVED)
 5. High Wire
 6. Burning Bridges
 
@@ -86,7 +86,7 @@ Airport's mission is actually part of Lance's Chapter 2 chain.
 
 #### $6[4] *Lance Vance* (`$4590[4] == 10`)
 1. Brawn of the Dead
-2. REMOVED
+2. nothing (Faking It)
 3. Blitzkrieg
 4. Turn on, Tune in, Bug out
 5. Taking the Fall
@@ -97,17 +97,17 @@ Airport's mission is actually part of Lance's Chapter 2 chain.
 10. Light My Pyre
 
 #### $6[9] *Gonzalez* (`$4590[9] == 4`)
-1. REMOVED
+1. nothing (REMOVED)
 2. Home's on the Range
 3. Purple Haze
 4. Farewell To Arms
 
 #### $6[10] *Leo Teal* (`$4590[10] == 5`)
-1. REMOVED
-2. REMOVED
-3. REMOVED
-4. REMOVED
-5. REMOVED
+1. nothing (REMOVED)
+2. nothing (REMOVED)
+3. nothing (REMOVED)
+4. nothing (REMOVED)
+5. nothing (REMOVED)
 
 `$18[10] == 1` is not required for credits.
 
