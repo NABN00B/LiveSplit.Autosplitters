@@ -1,17 +1,18 @@
-/* GTA Liberty City Stories Autosplitter for PPSSPP
- *   Made by NABN00B with help from zazaza691
- * Currently supports:
- *   PPSSPP: v1.8.0 64-bit executable (ONLY)
- *   GTA LCS: v1 American (ULUS10041) UMD version (ONLY)
- * Thanks to:
- *   Fryterp23 for continuous testing
- *   iguana for the idea of splitting when mission titles get displayed
- *   Nick007J for Control Lock values
- *   Patrick for early Cheat Engine advice
- *   Powdinet for Rampage State values and variable/address finding advice
+/*	GTA Liberty City Stories Autosplitter v1.8.0
+ *		Made by NABN00B
+ *	Currently supports:
+ * 		PPSSPP: v1.8.0, 64-bit executable
+ *		GTA LCS: v1 American (ULUS10041) UMD version (ONLY)
+ *	Contributors: zazaza691
+ *	Testers: Fryterp23, PowerSlaveAlfons
+ *	Thanks to:
+ *		iguana for the idea of splitting when mission titles get displayed
+ *		Nick007J for Control Lock values
+ *		Patrick for early Cheat Engine advice
+ *		Powdinet for Rampage State values and variable/address finding advice
  */
 
-state("PPSSPPWindows64") //64-bit version only
+state("PPSSPPWindows64") //64-bit exe only
 {
 	int gameLoading : 0xDC8FB0, 0x8B9289C; //Game Loading Flag
 	uint controlLock : 0xDC8FB0, 0x8B89D26; //Player Control Lock (bit field), values below
@@ -27,11 +28,11 @@ state("PPSSPPWindows64") //64-bit version only
 	int missionSalvatoreSSV : 0xDC8FB0, 0x9F6C2F8; //Salvatore Leone Shoreside Mission Chain Counter ($446)
 	int missionMaria : 0xDC8FB0, 0x9F6BFF4; //Maria Mission Chain Counter ($253)
 	
-	int hiddenPackagesFound : 0xDC8FB0, 0x9F6C4C4; //Hidden Packages Found Counter (reset and updated after loading a save: be careful when comparing!)
+	int hiddenPackagesFound : 0xDC8FB0, 0x9F6C4C4; //Hidden Packages Found Counter ($561) (reset and updated after loading a save: be careful when comparing!)
 	int rampageState : 0xDC8FB0, 0x8B5E45C; //Rampage State, 1: On Rampage, 2: Rampage Passed, 3: Rampage Failed
-	int rampagesPassed : 0xDC8FB0, 0x9F6E4B0; //Rampages Passed Counter (reset and updated after loading a save: be careful when comparing!)
-	int uniqueStuntsCompleted : 0xDC8FB0, 0x9F6CCD8; //Unique Stunts Completed Counter (reset and updated after loading a save: be careful when comparing!)
-	int vehiclesDelivered : 0xDC8FB0, 0x8E41658; //Cars found for Love Media Counter (reset and updated after loading a save: be careful when comparing!)
+	int rampagesPassed : 0xDC8FB0, 0x9F6E4B0; //Rampages Passed Counter ($2604) (reset and updated after loading a save: be careful when comparing!)
+	int uniqueStuntsCompleted : 0xDC8FB0, 0x9F6CCD8; //Unique Stunts Completed Counter ($1078) (reset and updated after loading a save: be careful when comparing!)
+	int vehiclesDelivered : 0xDC8FB0, 0x8E41658; //Cars found for Love Media Counter (IMPORT 0@) (reset and updated after loading a save: be careful when comparing!)
 	
 	int seagullsSniped : 0xDC8FB0, 0x8B5E1FC; //Seagulls Sniped Counter
 	int outfitChanges : 0xDC8FB0, 0x8B5E30C; //Outfit Changes Counter
@@ -55,7 +56,7 @@ startup
 	settings.SetToolTip("m_mattempt", "Splits when the Mission Attempts counter is increased, but only if the Missions Passed counter is increased between two attempts.");
 	settings.Add("m_mpass", false, "Mission Passed", "s_main");
 	settings.SetToolTip("m_mpass", "Splits when the Missions Passed counter is increased.");
-	settings.Add("m_cpoint", false, "100% Completion Progress Made", "s_main");
+	settings.Add("m_cpoint", false, "Progress Made Towards 100% Completion", "s_main");
 	settings.SetToolTip("m_cpoint", "Splits when the Completion Points counter is increased.");
 	
 	settings.Add("s_final", true, "Final Splits");
@@ -79,8 +80,22 @@ startup
 	settings.SetToolTip("c_rpass", "Splits when the Rampages Passed counter is increased.");
 	settings.Add("c_usj", false, "Unique Stunt Completed", "s_collect");
 	settings.SetToolTip("c_usj", "Splits when the Unique Stunts Completed counter is increased.");
-	settings.Add("c_export", false, "Vehicle Delivered", "s_collect");
+	settings.Add("c_export", false, "Import/Export Vehicle Delivered", "s_collect");
 	settings.SetToolTip("c_export", "Splits when the Cars found for Love Media counter is increased.");
+	
+	settings.Add("s_cfinal", false, "Collectibles Final Splits");
+	settings.Add("cf_ahp", false, "All Hidden Packages Final Split", "s_cfinal");
+	settings.SetToolTip("cf_ahp", "Splits when the Hidden Packages Found counter goes above 99.");
+	settings.Add("cf_99hp", false, "99/100 Hidden Packages Final Split", "s_cfinal");
+	settings.SetToolTip("cf_99hp", "Splits when the Hidden Packages Found counter goes above 98.");
+	settings.Add("cf_ar", false, "All Rampages Final Split", "s_cfinal");
+	settings.SetToolTip("cf_ar", "Splits when the Rampages Passed counter goes above 19.");
+	settings.Add("cf_ausj", false, "All Unique Stunts Final Split", "s_cfinal");
+	settings.SetToolTip("cf_ausj", "Splits when the Unique Stunts Completed counter goes above 25.");
+	settings.Add("cf_25usj", false, "25/26 Unique Stunts Final Split", "s_cfinal");
+	settings.SetToolTip("cf_25usj", "Splits when the Unique Stunts Completed counter goes above 24.");
+	settings.Add("cf_aexport", false, "All Import/Export Vehicles Final Split", "s_cfinal");
+	settings.SetToolTip("cf_aexport", "Splits when the Cars found for Love Media counter goes above 15.");
 	
 	settings.Add("s_misc", false, "Miscellaneous");
 	settings.Add("o_gull", false, "Seagull Sniped", "s_misc");
@@ -163,6 +178,40 @@ split
 			return true;
 	}
 	
+	//COLLECTIBLES FINAL SPLITS
+	if (settings["cf_ahp"])
+	{
+		if (current.hiddenPackagesFound >= 100 && old.hiddenPackagesFound <= 99) //Split if counter goes above 99 for the first time
+			return true;
+	}
+	if (settings["cf_99hp"])
+	{
+		if (current.hiddenPackagesFound >= 99 && old.hiddenPackagesFound <= 98) //Split if counter goes above 98 for the first time
+			return true;
+	}
+	if (settings["cf_ar"])
+	{
+		//Split if counter goes above 19 for the first time and rampage is passed
+		if (current.rampagesPassed >= 20 && old.rampagesPassed <= 19 && current.rampageState == 2)
+			return true;
+	}
+	if (settings["cf_ausj"])
+	{
+		if (current.uniqueStuntsCompleted >= 26 && old.uniqueStuntsCompleted <= 25) //Split if counter goes above 25 for the first time
+			return true;
+	}
+	if (settings["cf_25usj"])
+	{
+		if (current.uniqueStuntsCompleted >= 25 && old.uniqueStuntsCompleted <= 24) //Split if counter goes above 24 for the first time
+			return true;
+	}
+	if (settings["cf_aexport"])
+	{
+		//Split if counter goes above 15 for the first time and player is not inside safehouse
+		if (current.vehiclesDelivered >= 16 && old.vehiclesDelivered <= 15 && current.musicChannel != 19)
+			return true;
+	}
+	
 	//MAIN SPLITS
 	if (settings["m_mtitle"])
 	{
@@ -223,7 +272,7 @@ split
 	}
 	if (settings["c_export"])
 	{
-		if (current.vehiclesDelivered > old.vehiclesDelivered) //Split if counter is increased
+		if (current.vehiclesDelivered > old.vehiclesDelivered && current.musicChannel != 19) //Split if counter is increased and player is not inside safehouse
 			return true;
 	}
 	
