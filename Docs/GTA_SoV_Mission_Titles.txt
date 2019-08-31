@@ -1,0 +1,35 @@
+Mis	Thread	GXT Key	GXT Value
+0	INITIAL
+1	INTRO
+2	JEFF0	LAW_1	Vice Connection
+3	JEFF1	LAW_2	Mean Street Deliveries
+4	JEFF2	LAW_3	Rough Competition
+5	JEFF3	LAW_4	Eagle Eye
+6	JEFF4	COL_1	Starfish Chansaw Massacre
+7	JEFF7	COL_2	Men Hunt
+8	LOOP1	COL_3	Guardian Angels
+9	ERICO1	COL_4	Delivery Service
+10	ERICO2	COL_5	Bullet Dance
+11	ERICO4	COK_1	Sex, Drugs & Rock'n'roll
+12	ERICO5	COK_2	More Like Ammu-Nothing
+13	ERICO6	COK_3	Handle This!
+14	ERICO3	COK_4	Big Trouble in Little Havana
+15	UMBER1	ASS_1	Sea Warriors
+16	UMBER2	KENT_1	Get Cortez
+17	UMBER3	TEX_1	Firearms No More
+18	UMBER4	TEX_3	The Protection
+19	LOOP2	TEX_2	Two Bit Hit
+20	UMBER6	BANK_1	The Bitch Goes Down
+21	UMBER5	BANK_2	Holding the Line
+22	TOYZ3	BANK_3	Skyline Flavour
+23	JEFF6	BIKE_1	Kid's Play
+24	LOOP3
+25	LOOP4
+26	LOOP5	PORN_1	Recruitment Drive
+27	LOOP6	PORN_2	Dildo Dodo
+28	TOYZ1	PORN_3	Shady Business
+29	TOYZ2	PORN_4	Top Fun
+30	PCJ	BMX_2	Beach Run
+31	CADDY	ROCK_3	Golf Course
+32	SANDOK	TAXI_1	VC Dock Challenge
+33	FAGRACE	JOB_2	Starfish Challenge
