@@ -1,102 +1,114 @@
-JER_A01	Soldier
-JER_A02	Cleaning House
-JER_A03	Conduct Unbecoming
-PHI_A01	Cholo Victory
-PHI_A02	Boomshine Blowout
-PHI_A03	Truck Stop
-PHI_A04	Marked Men
-MAR_A01	Shakedown
-MAR_A02	Fear the Repo
-MAR_A03	Waking Up the Neighbors
-MAR_A04	O, Brothel, Where Art Thou?
-MAR_A05	Got Protection?
-LOU_A01	When Funday Comes
-LOU_A02	Takin' Out the White-Trash
-LOU_A03	D.I.V.O.R.C.E.
-LOU_A04	To Victor, the Spoils
-LAN_B01	Jive Drive
-LAN_B02	The Audition
-LAN_B03	REMOVED
-LAN_B04	Caught as an Act
-LAN_B05	Snitch Hitch
-LAN_B06	From Zero to Hero
-LOU_B01	Hose the Hoes
-LOU_B02	Robbing the Cradle
-LOU_B03	REMOVED
-UMB_B01	Nice Package
-UMB_B02	Balls
-UMB_B03	Papi Don't Screech
-UMB_B04	Havana Good Time
-BRY_B01	Money for Nothing
-BRY_B02	REMOVED
-BRY_B03	Leap and Bound
-BRY_B04	The Bum Deal
-LAN_C01	Brawn of the Dead
-LAN_C02	Faking It
-LAN_C03	Blitzkrieg
-LAN_C04	Turn on, Tune in, Bug out
-LAN_C05	Taking the Fall
-LAN_C06	White Lies
-LAN_C07	Where it Hurts Most
-LAN_C08	Blitzkrieg Strikes Again
-LAN_C09	Lost and Found
-LAN_C10	Light My Pyre
-REN_C01	Accidents Will Happen
-REN_C02	The Colonel's Coke
-REN_C03	Kill Phil
-REN_C04	Say Cheese
-REN_C05	Kill Phil: Part 2
-REN_C06	So Long Schlong
-REN_C07	In The Air Tonight
-MEN_C01	The Mugshot Longshot
-MEN_C02	Hostile Takeover
-MEN_C03	Unfriendly Competition
-MEN_C04	REMOVED
-MEN_C05	High Wire
-MEN_C06	Burning Bridges
-GON_C01	REMOVED
-GON_C02	Home's on the Range
-GON_C03	Purple Haze
-GON_C04	Farewell To Arms
-DIA_C01	Steal the Deal
-DIA_C02	The Exchange
-DIA_C03	Domo Arigato Domestoboto
-DIA_C04	Over the Top
-DIA_C05	Last Stand
-LEO_C01	REMOVED
-LEO_C02	REMOVED
-LEO_C03	REMOVED
-LEO_C04	REMOVED
-LEO_C05	REMOVED
-E_PR	'Extortion'
-E_RE	'Loan Shark'
-E_PI	'Pimping'
-E_DR	'Drug Running'
-E_SM	'Smuggling'
-E_RO	'Robbery'
-CHOPLIF	'Air Rescue'
-BEA_TIT	'Beach Patrol'
-FIR_TIT	'Fire Copter'
-FIRE_M	'Fire Fighter'
-PARAMED	'Paramedic'
-VIGILAN	'Vigilante'
-TAXIDR	Taxi Driver
-HEL_TIT	'Vice Sights'
-VIGILAN	'Vigilante'
-CR_TIT	'Crash!'
-PC2_TIT	'Playground On The Point'
-PCJ_TIT	'Playground On The Town'
-AIR_TIT	'Crims On Wings'
-HOV_TIT	'Haiti Hover Race'
-HO2_TIT	'Harbor Hover Race'
-MVR_TIT	'Land, Sea And Air Ace'
-BMX_TIT	'Mashin' up the Mall'
-GYR_TIT	'Skywolf'
-TT_BMX	BMX Time Trials
-TT_QUAD	Quad Bike Time Trials
-TT_SAN	Sanchez Time Trials
-TT_JSKI	'Watersports'
-RAC_TIT	Turismo
-SRNG	'Phil's Shooting Range'
-DRIVING	'Swinger's Club'
-RAMPAGE	Rampage!
+Mis	Thread	GXT Key	GXT Value
+-	-	LOU_B03	REMOVED
+-	-	LAN_B03	REMOVED
+-	-	BRY_B02	REMOVED
+-	-	MEN_C04	REMOVED
+-	-	LAN_C02	Faking It
+-	-	GON_C01	REMOVED
+-	-	LEO_C01	REMOVED
+-	-	LEO_C02	REMOVED
+-	-	LEO_C03	REMOVED
+-	-	LEO_C04	REMOVED
+-	-	LEO_C05	REMOVED
+-	RAMPAGE	RAMPAGE	Rampage!
+0	INITPU
+1	INITUSJ
+2	INITCG
+3	INITGA
+4	INITOB
+5	INITPLA
+6	INITGEN
+7	NONAME_13
+8	NONAME_14	JER_A01	Soldier
+9	NONAME_15
+10	BUILDDE
+11	BUILD
+12	RENC7	REN_C07	In The Air Tonight
+13	NONAME_16
+14	SRANGE	SRNG	'Phil's Shooting Range'
+15	PARAMED	PARAMED	'Paramedic'
+16	VIG	VIGILAN	'Vigilante'
+17	FIRETRK	FIRE_M	'Fire Fighter'
+18	CHOPLIF	CHOPLIF	'Air Rescue'
+19	DRIVERA	DRIVING	'Swinger's Club'
+20	TAXI	TAXIDR	Taxi Driver
+21	E_PR	E_PR	'Extortion'
+22	E_RE	E_RE	'Loan Shark'
+23	E_PI	E_PI	'Pimping'
+24	E_DR	E_DR	'Drug Running'
+25	E_SM	E_SM	'Smuggling'
+26	E_RO	E_RO	'Robbery'
+27	TTRIAL	TT_JSKI	'Watersports'
+28	CRASH	CR_TIT	'Crash!'
+29	QTTRIAL	TT_QUAD	Quad Bike Time Trials
+30	BTRIAL	TT_BMX	BMX Time Trials
+31	DTRIAL	TT_SAN	Sanchez Time Trials
+32	BMXMALL	BMX_TIT	'Mashin' up the Mall'
+33	BEACHPL	BEA_TIT	'Beach Patrol'
+34	TOURVCS	HEL_TIT	'Vice Sights'
+35	FIREHEL	FIR_TIT	'Fire Copter'
+36	RACEHUB	RAC_TIT	Turismo
+37	GYROTGT	GYR_TIT	'Skywolf'
+38	AIRRACE	AIR_TIT	'Crims On Wings'
+39	MVRACE	MVR_TIT	'Land, Sea And Air Ace'
+40	PCJPLAY	PCJ_TIT	'Playground On The Town'
+40	PCJPLAY	PC2_TIT	'Playground On The Point'
+41	HOVERTT	HOV_TIT	'Haiti Hover Race'
+41	HOVERTT	HO2_TIT	'Harbor Hover Race'
+42	NONAME_17	JER_A02	Cleaning House
+43	JER_A3	JER_A03	Conduct Unbecoming
+44	PHI_A1	PHI_A01	Cholo Victory
+45	PHI_A2	PHI_A02	Boomshine Blowout
+46	PHI_A3	PHI_A03	Truck Stop
+47	PHI_A4	PHI_A04	Marked Men
+48	MAR_A1	MAR_A01	Shakedown
+49	MAR_A2	MAR_A02	Fear the Repo
+50	MAR_A3	MAR_A03	Waking Up the Neighbors
+51	MAR_A4	MAR_A04	O, Brothel, Where Art Thou?
+52	MAR_A5	MAR_A05	Got Protection?
+53	LOU_A1	LOU_A01	When Funday Comes
+54	LOU_A2	LOU_A02	Takin' Out the White-Trash
+55	LOU_A3	LOU_A03	D.I.V.O.R.C.E.
+56	LOU_A4	LOU_A04	To Victor, the Spoils
+57	LOU_B1	LOU_B01	Hose the Hoes
+58	LOU_B2	LOU_B02	Robbing the Cradle
+59	LAN_B1	LAN_B01	Jive Drive
+60	LAN_B2	LAN_B02	The Audition
+61	LAN_B4	LAN_B04	Caught as an Act
+62	LAN_B5	LAN_B05	Snitch Hitch
+63	LAN_B6	LAN_B06	From Zero to Hero
+64	UMB_B1	UMB_B01	Nice Package
+65	UMB_B2	UMB_B02	Balls
+66	UMB_B3	UMB_B03	Papi Don't Screech
+67	UMB_B4	UMB_B04	Havana Good Time
+68	BRY_B1	BRY_B01	Money for Nothing
+69	BRY_B3	BRY_B03	Leap and Bound
+70	BRY_B4	BRY_B04	The Bum Deal
+71	MEN_C1	MEN_C01	The Mugshot Longshot
+72	MEN_C2	MEN_C02	Hostile Takeover
+73	MEN_C3	MEN_C03	Unfriendly Competition
+74	MEN_C5	MEN_C05	High Wire
+75	NONAME_18	MEN_C06	Burning Bridges
+76	REN_C1	REN_C01	Accidents Will Happen
+77	REN_C2	REN_C02	The Colonel's Coke
+78	NONAME_19	REN_C03	Kill Phil
+79	REN_C4	REN_C04	Say Cheese
+80	REN_C5	REN_C05	Kill Phil: Part 2
+81	REN_C6	REN_C06	So Long Schlong
+82	LAN_C1	LAN_C01	Brawn of the Dead
+83	LAN_C3	LAN_C03	Blitzkrieg
+84	LAN_C4	LAN_C04	Turn on, Tune in, Bug out
+85	LAN_C5	LAN_C05	Taking the Fall
+86	NONAME_20	LAN_C06	White Lies
+87	LAN_C7	LAN_C07	Where it Hurts Most
+88	LAN_C8	LAN_C08	Blitzkrieg Strikes Again
+89	LAN_C9	LAN_C09	Lost and Found
+90	LAN_C10	LAN_C10	Light My Pyre
+91	GON_C2	GON_C02	Home's on the Range
+92	GON_C3	GON_C03	Purple Haze
+93	GON_C4	GON_C04	Farewell To Arms
+94	TEMP1	DIA_C01	Steal the Deal
+95	DIA_C2	DIA_C02	The Exchange
+96	DIA_C3	DIA_C03	Domo Arigato Domestoboto
+97	DIA_C4	DIA_C04	Over the Top
+98	DIA_C5	DIA_C05	Last Stand
