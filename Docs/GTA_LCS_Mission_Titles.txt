@@ -1,105 +1,126 @@
-VIC1	Home Sweet Home
-VIC2	Slacker
-VIC3	Dealing Revenge
-VIC4	Snuff
-VIC5	Smash and Grab
-VIC6	Hot Wheels
-VIC7	The Portland Chainsaw Masquerade
-JDT1	Bone Voyeur!
-JDT2	Don in 60 Seconds
-JDT3	A Volatile Situation
-JDT4	Blow up 'Dolls'
-JDT5	Salvatore's Salvation
-JDT6	The Guns of Leone
-JDT7	Calm before the Storm
-JDT8	The Made Man
-MAC1	Snappy Dresser
-MAC2	Big Rumble in Little China
-MAC3	Grease Sucho
-MAC4	Dead Meat
-MAC5	No Son of Mine
-SAL1	The Offer
-SAL2	Ho Selecta!
-SAL3	Frighteners
-SAL4	Rollercoaster Ride
-SAL5	Contra-Banned
-SAL6	Sindacco Sabotage
-SAL7	The Trouble with Triads
-SAL8	Driving Mr Leone
-MAR1	Shop 'til you Strop
-MAR2	Taken for a Ride
-MAR3	Booby Prize
-MAR4	Biker Heat
-MAR5	Overdose of Trouble
-SALS1	A Walk In The Park
-SALS2	Making Toni
-SALS3	Caught In The Act
-SALS4	Search And Rescue
-SALS5	Taking The Peace
-SALS6	Shoot The Messenger
-DONS1	The Morgue Party Candidate
-DONS2	Steering The Vote
-DONS3	Cam-Pain
-DONS4	Friggin' The Riggin'
-DONS5	Love & Bullets
-DONS6	Counterfeit Count
-DONS7	Love On The Rocks
-NEDS1	L.C. Confidential
-NEDS2	The Passion Of The Heist
-NEDS3	Karmageddon
-NEDS4	False Idols
-RAYS1	Sayonara Sindaccos
-RAYS2	The Whole 9 Yardies
-RAYS3	Crazy '69'
-RAYS4	Night Of The Livid Dreads
-RAYS5	Munitions Dump
-SALH1	Rough Justice
-SALH2	Dead Reckoning
-SALH3	Shogun Showdown
-SALH4	The Shoreside Redemption
-SALH5	The Sicilian Gambit
-DONH1	Panlantic Land Grab
-DONH2	Stop the Press
-DONH3	Morgue Party Resurrection
-DONH4	No Money, Mo' Problems
-DONH5	Bringing the House Down
-DONH6	Love on the Run
-TOSH1	More Deadly than the Male
-TOSH2	Cash Clash
-TOSH3	A Date with Death
-TOSH4	Cash in Kazuki's Chips
-ANG	Avenging Angels
-FIRE_M	'Firefighter'
-AMBUL_M	'Paramedic'
-TAXI_M	'Taxi Driver'
-TRASH1	Trash Dash
-COP_M	'Vigilante'
-BIKE	'Bike Salesman'
-CARS	'Car Salesman'
-NDL1_A	Noodle Punk
-PIZ1_A	Well Snacked Pizza
-RAC1	Low-Rider Rumble
-RAC2	Deimos Dash
-RAC3	Wi-Cheetah Run
-BIK1	Red Light Racing
-BIK2	Torrington TT
-BIK3	Gangsta GP
-BNDRAC0	Thrashin' RC
-BNDRAC1	Ragin' RC
-BNDRAC2	Chasin' RC
-TKR1	9mm Mayhem
-TKR2	Scooter Shooter
-TUSHTK	AWOL Angel
-TT1	'Bumps & Grinds'
-TOUR	See the Sight Before your Flight
-PCJTIT	GO GO Faggio
-NEDS3	Karmageddon
-RCBOMB1	RC Triad Take-Down
-K_TKT	Scrapyard Challenge
-TV_01	Slash TV
-TRTIT	Wong Side Of The Tracks
-RAMPAGE	RAMPAGE
-MPRCS1	Street Rage
-MPTCS1	Tanks for the Memories
-MPHPCS1	The Hit List
-MPWCS1	The Wedding List
+Mis	Thread	GXT Key	GXT Value
+-	DIRTM	TT1	'Bumps & Grinds'
+-	MPRCS	MPRCS1	Street Rage
+-	MPTCS	MPTCS1	Tanks for the Memories
+-	MPHPCS	MPHPCS1	The Hit List
+-	MPWCS	MPWCS1	The Wedding List
+-	RAMPAGE	RAMPAGE	RAMPAGE
+-	ANG	ANG	Avenging Angels
+0	INITOB
+1	INITHP
+2	INITCG
+3	INITPU
+4	INITUSJ
+5	NONAME_27
+6	INITGEN
+7	NONAME_28
+8	INITSAV
+9	VIC1	VIC1	Home Sweet Home
+10	TAXIDR	TAXI_M	'Taxi Driver'
+11	AMBULAN	AMBUL_M	'Paramedic'
+12	COPCAR	COP_M	'Vigilante'
+13	CRASH	NEDS3	Karmageddon
+14	FIRETRU	FIRE_M	'Firefighter'
+15	TRASH2	TRASH1	Trash Dash
+16	RCBOMB1	RCBOMB1	RC Triad Take-Down
+17	RCRACE1	BNDRAC0	Thrashin' RC
+18	RCRACE2	BNDRAC1	Ragin' RC
+19	RCRACE3	BNDRAC2	Chasin' RC
+20	PCJPLAY	PCJTIT	GO GO Faggio
+21	NOODLE	NDL1_A	Noodle Punk
+22	PIZZA	PIZ1_A	Well Snacked Pizza
+23	TR1	TRTIT	Wong Side Of The Tracks
+24	TT1
+25	TT2
+26	TT3
+27	TT4
+28	TT5
+29	TT6
+30	TT7
+31	TT8
+32	TT9
+33	TT10
+34	CARSALE	CARS	'Car Salesman'
+35	BIKESAL	BIKE	'Bike Salesman'
+36	RAC1	RAC1	Low-Rider Rumble
+37	RAC2	RAC2	Deimos Dash
+38	RAC3	RAC3	Wi-Cheetah Run
+39	BIK1	BIK1	Red Light Racing
+40	BIK2	BIK2	Torrington TT
+41	BIK3	BIK3	Gangsta GP
+42	TP2	TKR2	Scooter Shooter
+43	TS1	TUSHTK	AWOL Angel
+44	TP1	TKR1	9mm Mayhem
+45	KICKST	K_TKT	Scrapyard Challenge
+46	TOURIST	TOUR	See the Sight Before your Flight
+47	TV	TV_01	Slash TV
+48	VIC2	VIC2	Slacker
+49	VIC3	VIC3	Dealing Revenge
+50	VIC4	VIC4	Snuff
+51	VIC5	VIC5	Smash and Grab
+52	VIC6	VIC6	Hot Wheels
+53	VIC7	VIC7	The Portland Chainsaw Masquerade
+54	SAL1	SAL1	The Offer
+55	SAL2	SAL2	Ho Selecta!
+56	SAL3	SAL3	Frighteners
+57	SAL4	SAL4	Rollercoaster Ride
+58	SAL5	SAL5	Contra-Banned
+59	SAL6	SAL6	Sindacco Sabotage
+60	SAL7	SAL7	The Trouble with Triads
+61	SAL8	SAL8	Driving Mr Leone
+62	JDREF
+63	JDT1	JDT1	Bone Voyeur!
+64	JDT2	JDT2	Don in 60 Seconds
+65	JDT3	JDT3	A Volatile Situation
+66	JDT4	JDT4	Blow up 'Dolls'
+67	JDT5	JDT5	Salvatore's Salvation
+68	JDT6	JDT6	The Guns of Leone
+69	JDT7	JDT7	Calm before the Storm
+70	JDT8	JDT8	The Made Man
+71	MAC1	MAC1	Snappy Dresser
+72	MAC2	MAC2	Big Rumble in Little China
+73	MAC3	MAC3	Grease Sucho
+74	MAC4	MAC4	Dead Meat
+75	MAC5	MAC5	No Son of Mine
+76	MAR1	MAR1	Shop 'til you Strop
+77	MAR2	MAR2	Taken for a Ride
+78	MAR3	MAR3	Booby Prize
+79	MAR4	MAR4	Biker Heat
+80	MAR5	MAR5	Overdose of Trouble
+81	SALS2	SALS2	Making Toni
+82	SALS1	SALS1	A Walk In The Park
+83	SALS3	SALS3	Caught In The Act
+84	SALS4	SALS4	Search And Rescue
+85	SALS5	SALS5	Taking The Peace
+86	SALS6	SALS6	Shoot The Messenger
+87	RAYS1	RAYS1	Sayonara Sindaccos
+88	RAYS2	RAYS2	The Whole 9 Yardies
+89	RAYS3	RAYS3	Crazy '69'
+90	RAYS4	RAYS4	Night Of The Livid Dreads
+91	RAYS5	RAYS5	Munitions Dump
+92	DONS1	DONS1	The Morgue Party Candidate
+93	DONS2	DONS2	Steering The Vote
+94	DONS3	DONS3	Cam-Pain
+95	DONS4	DONS4	Friggin' The Riggin'
+96	DONS5	DONS5	Love & Bullets
+97	DONS6	DONS6	Counterfeit Count
+98	DONS7	DONS7	Love On The Rocks
+99	NEDS1	NEDS1	L.C. Confidential
+100	NEDS2	NEDS2	The Passion Of The Heist
+101	NEDS3	NEDS3	Karmageddon
+102	NEDS4	NEDS4	False Idols
+103	SALH1	SALH1	Rough Justice
+104	SALH2	SALH2	Dead Reckoning
+105	SALH3	SALH3	Shogun Showdown
+106	SALH4	SALH4	The Shoreside Redemption
+107	SALH5	SALH5	The Sicilian Gambit
+108	DONH1	DONH1	Panlantic Land Grab
+109	DONH2	DONH2	Stop the Press
+110	DONH3	DONH3	Morgue Party Resurrection
+111	DONH4	DONH4	No Money, Mo' Problems
+112	DONH5	DONH5	Bringing the House Down
+113	DONH6	DONH6	Love on the Run
+114	TOSH1	TOSH1	More Deadly than the Male
+115	TOSH2	TOSH2	Cash Clash
+116	TOSH3	TOSH3	A Date with Death
+117	TOSH4	TOSH4	Cash in Kazuki's Chips
