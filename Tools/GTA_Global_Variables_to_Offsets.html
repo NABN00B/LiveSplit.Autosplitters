@@ -1,0 +1,20 @@
+<!-- Run at https://js.do/ or open it in your browser. -->
+<script>
+	// Initialisation
+	var GlobalZeroOffsets = new Map
+	([
+		["LCS_PSP_US_v1_UMD", 0x9F6BC00], // OMF: $560
+		["VCS_PSP_US", 0x9F68400] // OMF: $789
+	]);
+	
+	// Input
+	var GlobalZeroID = "LCS_PSP_v1_US_UMD";
+	var GlobalVars = [0];
+	
+	// Output
+	for (var i = 0; i < GlobalVars.length; i++)
+	{
+		var offset = GlobalZeroOffsets.get(GlobalZeroID) + (4 * GlobalVars[i]);
+			document.write(GlobalVars[i] + " --> " + offset.toString(16).toUpperCase() + "<br>");
+	}
+</script>
