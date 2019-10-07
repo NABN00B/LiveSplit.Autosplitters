@@ -1,8 +1,8 @@
-/*	GTA Liberty City Stories Autosplitter v1.9
+/*	GTA Liberty City Stories Autosplitter v1.9.3
  *		Made by NABN00B
  *		https://github.com/DavidTamas/LiveSplit.Autosplitters
  *	Currently supports:
- * 		PPSSPP: stable releases from v1.7 to v1.9, 64-bit executable, standard or Gold
+ * 		PPSSPP: stable releases from v1.7 to v1.9.3, 64-bit executable, standard or Gold
  *		GTA LCS: v1 (MAIN.SCM from 12/10/2005) American (serial ULUS10041) UMD (disc) version ONLY
  *	Contributors: zazaza691
  *	Testers: Fryterp23, PowerSlaveAlfons
@@ -16,11 +16,12 @@
 
 // 64-bit exe only
 state("PPSSPPWindows64", "unknown") { }
-state("PPSSPPWindows64", "v1.9")    { }
-state("PPSSPPWindows64", "v1.8.0")  { }
-state("PPSSPPWindows64", "v1.7.4")  { }
-state("PPSSPPWindows64", "v1.7.1")  { }
-state("PPSSPPWindows64", "v1.7")    { }
+state("PPSSPPWindows64", "v1.9.3" ) { }
+state("PPSSPPWindows64", "v1.9"   ) { }
+state("PPSSPPWindows64", "v1.8.0" ) { }
+state("PPSSPPWindows64", "v1.7.4" ) { }
+state("PPSSPPWindows64", "v1.7.1" ) { }
+state("PPSSPPWindows64", "v1.7"   ) { }
 
 
 startup
@@ -107,6 +108,8 @@ startup
 	
 	settings.Add("LGSP", true, "'Load Game' Split Prevention (Recommended)");
 	settings.SetToolTip("LGSP", "Prevents splitting when loading a save file or restarting the game.");
+	settings.Add("STARTT", false, "Start Timer upon Displaying a Mission Title");
+	settings.SetToolTip("STARTT", "Starts the timer when a Mission Title gets displayed. Useful for segment practice.");
 	// SETTINGS END
 }
 
@@ -117,12 +120,13 @@ init
 	switch (modules.First().FileVersionInfo.FileVersion)	
 	{
 		// Add new versions to the top
+		case "v1.9.3": version = "v1.9.3" ; vars.EmulatorVersion = "v1.9.3" ; vars.OffsetToGame = 0xD8C010; break;
 		case "v1.9"  : version = "v1.9"   ; vars.EmulatorVersion = "v1.9"   ; vars.OffsetToGame = 0xD8AF70; break;
 		case "v1.8.0": version = "v1.8.0" ; vars.EmulatorVersion = "v1.8.0" ; vars.OffsetToGame = 0xDC8FB0; break;
 		case "v1.7.4": version = "v1.7.4" ; vars.EmulatorVersion = "v1.7.4" ; vars.OffsetToGame = 0xD91250; break;
 		case "v1.7.1": version = "v1.7.1" ; vars.EmulatorVersion = "v1.7.1" ; vars.OffsetToGame = 0xD91250; break;
 		case "v1.7"  : version = "v1.7"   ; vars.EmulatorVersion = "v1.7"   ; vars.OffsetToGame = 0xD90250; break;
-		default      : version = "unknown"; vars.EmulatorVersion = "unknown"; vars.OffsetToGame = 0x0; break;
+		default      : version = "unknown"; vars.EmulatorVersion = "unknown"; vars.OffsetToGame = 0x0     ; break;
 	}
 	////vars.DebugOutputVersion("INIT - VERSION DETECTED");
 	// EMULATOR VERSION CONTROL END
@@ -445,7 +449,7 @@ reset
 start
 {
 	// Start when the player gains control during the first mission
-	if (vars.MemoryWatchers["PlayerControlLock"].Current == 0 && vars.MemoryWatchers["PlayerControlLock"].Old == 32 && vars.MemoryWatchers["MissionAttemptsCounter"].Current == 1 && vars.MemoryWatchers["OnMissionFlag"].Current == 1)
+	if ((vars.MemoryWatchers["PlayerControlLock"].Current == 0 && vars.MemoryWatchers["PlayerControlLock"].Old == 32 && vars.MemoryWatchers["MissionAttemptsCounter"].Current == 1 && vars.MemoryWatchers["OnMissionFlag"].Current == 1) || (settings["STARTT"] && vars.MemoryWatchers["CurrentMissionTitle"].Current != String.Empty && vars.MemoryWatchers["CurrentMissionTitle"].Old == String.Empty))
 	{
 		////vars.DebugOutputVars("START");
 		return true;
