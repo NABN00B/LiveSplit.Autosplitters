@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheatTable CheatEngineTableVersion="28">
+<CheatTable CheatEngineTableVersion="29">
   <CheatEntries>
     <CheatEntry>
       <ID>62</ID>
@@ -19,7 +19,7 @@
               <ID>0</ID>
               <Description>"Completion Points"</Description>
               <VariableType>Float</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x8B5E158</Offset>
               </Offsets>
@@ -28,7 +28,7 @@
               <ID>1</ID>
               <Description>"Current Island (Collision Loaded)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x8B5E354</Offset>
               </Offsets>
@@ -37,7 +37,7 @@
               <ID>2</ID>
               <Description>"Rampage State"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x8B5E45C</Offset>
               </Offsets>
@@ -46,7 +46,7 @@
               <ID>3</ID>
               <Description>"Player Control Lock"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x8B89D26</Offset>
               </Offsets>
@@ -55,7 +55,7 @@
               <ID>4</ID>
               <Description>"Game Loading Flag"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x8B9289C</Offset>
               </Offsets>
@@ -64,7 +64,7 @@
               <ID>5</ID>
               <Description>"Music Channel ID (?)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x8DCE71C</Offset>
               </Offsets>
@@ -80,9 +80,18 @@
           <CheatEntries>
             <CheatEntry>
               <ID>6</ID>
+              <Description>"Unique Jumps Completed Counter"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
+              <Offsets>
+                <Offset>0x8B5E19C</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>164</ID>
               <Description>"Mission Attempts Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x8B5E1A4</Offset>
               </Offsets>
@@ -91,27 +100,54 @@
               <ID>7</ID>
               <Description>"Missions Passed Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x8B5E1A8</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>163</ID>
+              <Description>"Rampages Passed Counter"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
+              <Offsets>
+                <Offset>0x8B5E1E4</Offset>
               </Offsets>
             </CheatEntry>
             <CheatEntry>
               <ID>8</ID>
               <Description>"Seagulls Sniped Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x8B5E1FC</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>162</ID>
+              <Description>"Cars Found for 'Love Media' Counter"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
+              <Offsets>
+                <Offset>0x8B5E2B4</Offset>
               </Offsets>
             </CheatEntry>
             <CheatEntry>
               <ID>9</ID>
               <Description>"Outfit Changes Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x8B5E30C</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>161</ID>
+              <Description>"Hidden Packages Found Counter"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
+              <Offsets>
+                <Offset>0x8B89AD4</Offset>
               </Offsets>
             </CheatEntry>
           </CheatEntries>
@@ -131,7 +167,7 @@
               <Unicode>1</Unicode>
               <CodePage>0</CodePage>
               <ZeroTerminate>1</ZeroTerminate>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x8B79C4C</Offset>
               </Offsets>
@@ -144,7 +180,7 @@
               <Unicode>1</Unicode>
               <CodePage>0</CodePage>
               <ZeroTerminate>1</ZeroTerminate>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x8B91310</Offset>
               </Offsets>
@@ -171,7 +207,7 @@
               <ID>12</ID>
               <Description>"$517[i] Clothes i Unlocked (i: 0-15)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C414 + 4 * 0x0</Offset>
               </Offsets>
@@ -180,7 +216,7 @@
               <ID>13</ID>
               <Description>"$560 On Mission Flag"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C4C0</Offset>
               </Offsets>
@@ -198,7 +234,7 @@
               <ID>14</ID>
               <Description>"$241 Vincenzo Cilli Mission Chain Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BFC4</Offset>
               </Offsets>
@@ -207,7 +243,7 @@
               <ID>94</ID>
               <Description>"$244 Salvatore Leone Mission Chain Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BFD0</Offset>
               </Offsets>
@@ -216,7 +252,7 @@
               <ID>93</ID>
               <Description>"$247 JD O'Toole Mission Chain Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BFDC</Offset>
               </Offsets>
@@ -225,7 +261,7 @@
               <ID>92</ID>
               <Description>"$250 Ma Cipriani Mission Chain Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BFE8</Offset>
               </Offsets>
@@ -234,7 +270,7 @@
               <ID>91</ID>
               <Description>"$253 Maria Mission Chain Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BFF4</Offset>
               </Offsets>
@@ -243,7 +279,7 @@
               <ID>90</ID>
               <Description>"$296 Salvatore Leone Staunton Mission Chain Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C0A0</Offset>
               </Offsets>
@@ -252,7 +288,7 @@
               <ID>89</ID>
               <Description>"$299 Leon McAffrey Staunton Mission Chain Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C0AC</Offset>
               </Offsets>
@@ -261,7 +297,7 @@
               <ID>88</ID>
               <Description>"$302 Donald Love Staunton Mission Chain Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C0B8</Offset>
               </Offsets>
@@ -270,7 +306,7 @@
               <ID>87</ID>
               <Description>"$305 Church Confessional Staunton Mission Chain Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C0C4</Offset>
               </Offsets>
@@ -279,7 +315,7 @@
               <ID>86</ID>
               <Description>"$446 Salvatore Leone Shoreside Mission Chain Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C2F8</Offset>
               </Offsets>
@@ -288,7 +324,7 @@
               <ID>85</ID>
               <Description>"$449 Donald Love Shoreside Mission Chain Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C304</Offset>
               </Offsets>
@@ -297,7 +333,7 @@
               <ID>84</ID>
               <Description>"$452 Toshiko Kasen Shoreside Mission Chain Counter"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C310</Offset>
               </Offsets>
@@ -315,7 +351,7 @@
               <ID>83</ID>
               <Description>"$2374 Rough Justice: Clothes Shop Objective Activated"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6E118</Offset>
               </Offsets>
@@ -324,7 +360,7 @@
               <ID>82</ID>
               <Description>"$4171[0] Bone Voyeur!: Perennial Girl Y Coordinate"</Description>
               <VariableType>Float</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6FD2C + 4 * 0x0</Offset>
               </Offsets>
@@ -333,7 +369,7 @@
               <ID>81</ID>
               <Description>"$4171[0] The Sicilian Gambit: Helicopter Boss Defeated"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6FD2C + 4 * 0x0</Offset>
               </Offsets>
@@ -351,7 +387,7 @@
               <ID>80</ID>
               <Description>"$214 Vigilante Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BF58</Offset>
               </Offsets>
@@ -360,7 +396,7 @@
               <ID>79</ID>
               <Description>"$215 Paramedic Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BF5C</Offset>
               </Offsets>
@@ -369,7 +405,7 @@
               <ID>78</ID>
               <Description>"$216 Firefighter Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BF60</Offset>
               </Offsets>
@@ -378,7 +414,7 @@
               <ID>77</ID>
               <Description>"$217 Taxi Driver Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BF64</Offset>
               </Offsets>
@@ -387,7 +423,7 @@
               <ID>76</ID>
               <Description>"$218 Taxi Driver: Fares Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BF68</Offset>
               </Offsets>
@@ -396,7 +432,7 @@
               <ID>75</ID>
               <Description>"$219[0] Trash Dash: Portland Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BF6C + 4 * 0x0</Offset>
               </Offsets>
@@ -405,7 +441,7 @@
               <ID>157</ID>
               <Description>"$219[1] Trash Dash: Staunton Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BF6C + 4 * 0x1</Offset>
               </Offsets>
@@ -414,7 +450,7 @@
               <ID>156</ID>
               <Description>"$219[2] Trash Dash: Shoreside Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BF6C + 4 * 0x2</Offset>
               </Offsets>
@@ -423,7 +459,7 @@
               <ID>74</ID>
               <Description>"$222 Thrashin' RC Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BF78</Offset>
               </Offsets>
@@ -432,7 +468,7 @@
               <ID>73</ID>
               <Description>"$223 Ragin' RC Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BF7C</Offset>
               </Offsets>
@@ -441,7 +477,7 @@
               <ID>72</ID>
               <Description>"$224 Chasin' RC Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BF80</Offset>
               </Offsets>
@@ -450,7 +486,7 @@
               <ID>71</ID>
               <Description>"$260 Avenging Angels: All Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C010</Offset>
               </Offsets>
@@ -459,7 +495,7 @@
               <ID>70</ID>
               <Description>"$261 Avenging Angels: Portland Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C014</Offset>
               </Offsets>
@@ -468,7 +504,7 @@
               <ID>69</ID>
               <Description>"$262 Avenging Angels: Staunton Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C018</Offset>
               </Offsets>
@@ -477,7 +513,7 @@
               <ID>118</ID>
               <Description>"$263 Avenging Angels: Shoreside Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C01C</Offset>
               </Offsets>
@@ -486,7 +522,7 @@
               <ID>117</ID>
               <Description>"$265 Wong Side Of The Tracks Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C024</Offset>
               </Offsets>
@@ -495,7 +531,7 @@
               <ID>116</ID>
               <Description>"$267 Car Salesman Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C02C</Offset>
               </Offsets>
@@ -504,7 +540,7 @@
               <ID>115</ID>
               <Description>"$272 Car Salesman: Highest Level Reached"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C040</Offset>
               </Offsets>
@@ -513,7 +549,7 @@
               <ID>114</ID>
               <Description>"$273 RC Triad Take-Down Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C044</Offset>
               </Offsets>
@@ -522,7 +558,7 @@
               <ID>113</ID>
               <Description>"$275 Slash TV: 1st Time Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C04C</Offset>
               </Offsets>
@@ -531,7 +567,7 @@
               <ID>112</ID>
               <Description>"$276 Noodle Punk Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C050</Offset>
               </Offsets>
@@ -540,7 +576,7 @@
               <ID>111</ID>
               <Description>"$278 Scrapyard Challenge: Score &gt; 20 Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C058</Offset>
               </Offsets>
@@ -549,7 +585,7 @@
               <ID>110</ID>
               <Description>"$279 Scrapyard Challenge: Score &gt; 30 Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C05C</Offset>
               </Offsets>
@@ -558,7 +594,7 @@
               <ID>109</ID>
               <Description>"$281 9mm Mayhem Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C064</Offset>
               </Offsets>
@@ -567,7 +603,7 @@
               <ID>108</ID>
               <Description>"$283 Scooter Shooter Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C06C</Offset>
               </Offsets>
@@ -576,7 +612,7 @@
               <ID>107</ID>
               <Description>"$286 AWOL Angel Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C078</Offset>
               </Offsets>
@@ -585,7 +621,7 @@
               <ID>106</ID>
               <Description>"$288 Slash TV: 2nd Time Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C080</Offset>
               </Offsets>
@@ -594,7 +630,7 @@
               <ID>105</ID>
               <Description>"$316 GO GO Faggio Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C0F0</Offset>
               </Offsets>
@@ -603,7 +639,7 @@
               <ID>104</ID>
               <Description>"$317 Karmageddon (Side Mission) Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C0F4</Offset>
               </Offsets>
@@ -612,7 +648,7 @@
               <ID>103</ID>
               <Description>"$348[i] Street Races: Race i: Best Position (i: 0-11)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C170 + 4 * 0x0</Offset>
               </Offsets>
@@ -621,7 +657,7 @@
               <ID>102</ID>
               <Description>"$363 Thrashin' RC: Levels Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C1AC</Offset>
               </Offsets>
@@ -630,7 +666,7 @@
               <ID>101</ID>
               <Description>"$364 Ragin' RC: Levels Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C1B0</Offset>
               </Offsets>
@@ -639,7 +675,7 @@
               <ID>100</ID>
               <Description>"$365 Chasin' RC: Levels Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C1B4</Offset>
               </Offsets>
@@ -648,7 +684,7 @@
               <ID>99</ID>
               <Description>"$387[i] Bumps &amp; Grinds: Course i Unlocked (i: 0-10)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C20C + 4 * 0x0</Offset>
               </Offsets>
@@ -657,7 +693,7 @@
               <ID>98</ID>
               <Description>"$400 Bumps &amp; Grinds: Course 1 Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C240</Offset>
               </Offsets>
@@ -666,7 +702,7 @@
               <ID>97</ID>
               <Description>"$401 Bumps &amp; Grinds: Course 2 Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C244</Offset>
               </Offsets>
@@ -675,7 +711,7 @@
               <ID>150</ID>
               <Description>"$402 Bumps &amp; Grinds: Course 3 Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C248</Offset>
               </Offsets>
@@ -684,7 +720,7 @@
               <ID>149</ID>
               <Description>"$403 Bumps &amp; Grinds: Course 4 Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C24C</Offset>
               </Offsets>
@@ -693,7 +729,7 @@
               <ID>148</ID>
               <Description>"$404 Bumps &amp; Grinds: Course 5 Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C250</Offset>
               </Offsets>
@@ -702,7 +738,7 @@
               <ID>147</ID>
               <Description>"$405 Bumps &amp; Grinds: Course 6 Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C254</Offset>
               </Offsets>
@@ -711,7 +747,7 @@
               <ID>146</ID>
               <Description>"$406 Bumps &amp; Grinds: Course 7 Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C258</Offset>
               </Offsets>
@@ -720,7 +756,7 @@
               <ID>145</ID>
               <Description>"$407 Bumps &amp; Grinds: Course 8 Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C25C</Offset>
               </Offsets>
@@ -729,7 +765,7 @@
               <ID>144</ID>
               <Description>"$408 Bumps &amp; Grinds: Course 9 Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C260</Offset>
               </Offsets>
@@ -738,7 +774,7 @@
               <ID>143</ID>
               <Description>"$409 Bumps &amp; Grinds: Course 10 Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C264</Offset>
               </Offsets>
@@ -747,7 +783,7 @@
               <ID>142</ID>
               <Description>"$438 Bike Salesman Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C2D8</Offset>
               </Offsets>
@@ -756,7 +792,7 @@
               <ID>141</ID>
               <Description>"$439[0] Bike Salesman: Freeways Sold"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C2DC + 4 * 0x0</Offset>
               </Offsets>
@@ -765,7 +801,7 @@
               <ID>160</ID>
               <Description>"$439[1] Bike Salesman: PCJ-600's Sold"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C2DC + 4 * 0x1</Offset>
               </Offsets>
@@ -774,7 +810,7 @@
               <ID>159</ID>
               <Description>"$439[2] Bike Salesman: Faggios Sold"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C2DC + 4 * 0x2</Offset>
               </Offsets>
@@ -783,7 +819,7 @@
               <ID>158</ID>
               <Description>"$439[3] Bike Salesman: Faggios Sold"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C2DC + 4 * 0x3</Offset>
               </Offsets>
@@ -792,7 +828,7 @@
               <ID>140</ID>
               <Description>"$443 Well Snacked Pizza Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C2EC</Offset>
               </Offsets>
@@ -801,7 +837,7 @@
               <ID>139</ID>
               <Description>"$459 See the Sight Before your Flight: All Sights Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C32C</Offset>
               </Offsets>
@@ -810,7 +846,7 @@
               <ID>138</ID>
               <Description>"$460 See the Sight Before your Flight: Sights Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C330</Offset>
               </Offsets>
@@ -819,7 +855,7 @@
               <ID>137</ID>
               <Description>"$1511 Street Races: Current Position"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6D39C</Offset>
               </Offsets>
@@ -828,7 +864,7 @@
               <ID>136</ID>
               <Description>"$1831 Street Races: 1st Time Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6D89C</Offset>
               </Offsets>
@@ -846,7 +882,7 @@
               <ID>134</ID>
               <Description>"$11[i] Hidden Package i Collected (i: 0-99)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BC2C + 4 * 0x0</Offset>
               </Offsets>
@@ -855,7 +891,7 @@
               <ID>133</ID>
               <Description>"$111 Hidden Packages: Pistol Unlocked (10/100)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BDBC</Offset>
               </Offsets>
@@ -864,7 +900,7 @@
               <ID>132</ID>
               <Description>"$112 Hidden Packages: Shotgun Unlocked (20/100)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BDC0</Offset>
               </Offsets>
@@ -873,7 +909,7 @@
               <ID>131</ID>
               <Description>"$113 Hidden Packages: Body Armor Unlocked (30/100)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BDC4</Offset>
               </Offsets>
@@ -882,7 +918,7 @@
               <ID>130</ID>
               <Description>"$114 Hidden Packages: SMG Unlocked (40/100)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BDC8</Offset>
               </Offsets>
@@ -891,7 +927,7 @@
               <ID>129</ID>
               <Description>"$115 Hidden Packages: .357 Unlocked (50/100)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BDCC</Offset>
               </Offsets>
@@ -900,7 +936,7 @@
               <ID>128</ID>
               <Description>"$116 Hidden Packages: M4 Unlocked (60/100)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BDD0</Offset>
               </Offsets>
@@ -909,7 +945,7 @@
               <ID>127</ID>
               <Description>"$117 Hidden Packages: Laser Sighted Sniper Rifle Unlocked (70/100)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BDD4</Offset>
               </Offsets>
@@ -918,7 +954,7 @@
               <ID>126</ID>
               <Description>"$118 Hidden Packages: Flame-Thrower Unlocked (80/100)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BDD8</Offset>
               </Offsets>
@@ -927,7 +963,7 @@
               <ID>125</ID>
               <Description>"$119 Hidden Packages: Rocket Launcher Unlocked (90/100)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BDDC</Offset>
               </Offsets>
@@ -936,7 +972,7 @@
               <ID>124</ID>
               <Description>"$120 Hidden Packages: $50,000 Awarded (100/100)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BDE0</Offset>
               </Offsets>
@@ -945,7 +981,7 @@
               <ID>123</ID>
               <Description>"$163[i] Rampage i Completed (i: 0-19)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BE8C + 4 * 0x0</Offset>
               </Offsets>
@@ -954,7 +990,7 @@
               <ID>122</ID>
               <Description>"$183[i] Unique Stunt i Completed (i: 0-25)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BEDC + 4 * 0x0</Offset>
               </Offsets>
@@ -963,7 +999,7 @@
               <ID>121</ID>
               <Description>"$212 All Rampages Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BF50</Offset>
               </Offsets>
@@ -972,7 +1008,7 @@
               <ID>120</ID>
               <Description>"$213 All Unique Stunts Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6BF54</Offset>
               </Offsets>
@@ -981,7 +1017,7 @@
               <ID>119</ID>
               <Description>"$421[i] Import/Export Vehicle i Delivered (i: 0-15)"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C294 + 4 * 0x0</Offset>
               </Offsets>
@@ -990,7 +1026,7 @@
               <ID>155</ID>
               <Description>"$561 Hidden Packages Collected"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6C4C4</Offset>
               </Offsets>
@@ -999,7 +1035,7 @@
               <ID>154</ID>
               <Description>"$1078 Unique Stunts Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6CCD8</Offset>
               </Offsets>
@@ -1008,7 +1044,7 @@
               <ID>153</ID>
               <Description>"$2604 Rampages Completed"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x9F6E4B0</Offset>
               </Offsets>
@@ -1017,7 +1053,7 @@
               <ID>152</ID>
               <Description>"IMPORT 0@ Import/Export Vehicles Delivered"</Description>
               <VariableType>4 Bytes</VariableType>
-              <Address>PPSSPPWindows64.exe+0xD8AF70</Address>
+              <Address>PPSSPPWindows64.exe+0xD8C010</Address>
               <Offsets>
                 <Offset>0x8E41658</Offset>
               </Offsets>
