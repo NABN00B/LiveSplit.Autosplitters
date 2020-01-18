@@ -1,9 +1,14 @@
-/*	GTA Liberty City Stories Autosplitter (2020.01.04.)
+/*	GTA Liberty City Stories Autosplitter (2020.01.15.)
  *		Made by NABN00B
  *		https://github.com/DavidTamas/LiveSplit.Autosplitters
  *	Currently supports:
  * 		PPSSPP: 64-bit executable, v1.4 and later, standard or Gold
- *		GTA LCS: v1 (MAIN.SCM from 12/10/2005) American (serial ULUS10041) UMD (disc) version ONLY
+ *		GTA LCS: ULUS10041_1.05_ARTiSAN version ONLY
+ *			╔════════════════════════╦═════════════════╦════════╦═══════════╦═════════╦════════╦══════════╦══════════════╦════════════╦══════════╗
+ *			║ GAME VERSION           ║ SCRIPT          ║ REGION ║ SERIAL    ║ UMD VER ║ SOURCE ║ SUPPLIER ║ FILENAME     ║ DATE       ║ CRC32    ║
+ *			╠════════════════════════╬═════════════════╬════════╬═══════════╬═════════╬════════╬══════════╬══════════════╬════════════╬══════════╣
+ *			║ ULUS10041_1.05_ARTiSAN ║ v1 (2005/10/12) ║ US     ║ ULUS10041 ║ 1.05    ║ UMD    ║ ARTiSAN  ║ a-gtalcs.xxx ║ 2005/10/25 ║ 87E2772E ║
+ *			╚════════════════════════╩═════════════════╩════════╩═══════════╩═════════╩════════╩══════════╩══════════════╩════════════╩══════════╝
  *	Contributors: zazaza691
  *	Testers: Fryterp23, PowerSlaveAlfons
  *	Thanks to:
@@ -15,7 +20,7 @@
  *			on autosplitters for other GTA titles and solutions that inspired this code
  */
 
-// 64-bit exe only
+// 64-bit exe only.
 state("PPSSPPWindows64", "unknown") { }
 state("PPSSPPWindows64", "detected") { }
 
@@ -23,21 +28,23 @@ state("PPSSPPWindows64", "detected") { }
 startup
 {
 	// INITIAL SETUP
-	// Reduce CPU usage
+	// Reduce CPU usage.
 	refreshRate = 1000/30;
 	
-	// Initialise variables used for emulator version control
+	// Initialise variables used for emulator version control.
 	version = "unknown";
 	vars.EmulatorVersion = "unknown";
 	vars.OffsetToGame = 0x0;
 	
-	// Initialise variables used in autosplitter logic
+	// Initialise variables used in autosplitter logic.
 	vars.PrevTimerPhase = null;
 	vars.SplitPrevention = false;
 	vars.SplitMissionStart = false;
 	vars.SplitRampageStart = true;
+	vars.SplitStauntonReached = true;
+	vars.SplitShoresideReached = true;
 	
-	// Initialise debug output functions
+	// Initialise debug output functions.
 	Action<string, IntPtr> DebugOutputSigScan = (source, ptr) =>
 	{
 		print(String.Format("{0} {1}\n{0} ResultPointer: 0x{2:X}", "[GTA LCS Autosplitter]", source, (long)ptr));
@@ -50,7 +57,7 @@ startup
 	vars.DebugOutputVersion = DebugOutputVersion;
 	Action<string> DebugOutputVars = (source) =>
 	{
-		print(String.Format("{0} {1}\n{0} SplitPrevention: {2}\n{0} SplitMissionStart: {3}\n{0} SplitRampageStart: {4}\n", "[GTA LCS Autosplitter]", source, vars.SplitPrevention.ToString(), vars.SplitMissionStart.ToString(), vars.SplitRampageStart.ToString()));
+		print(String.Format("{0} {1}\n{0} SplitPrevention: {2}\n{0} SplitMissionStart: {3}\n{0} SplitRampageStart: {4}\n{0} SplitStauntonReached: {5}\n{0} SplitShoresideReached: {6}", "[GTA LCS Autosplitter]", source, vars.SplitPrevention.ToString(), vars.SplitMissionStart.ToString(), vars.SplitRampageStart.ToString(), vars.SplitStauntonReached.ToString(), vars.SplitShoresideReached.ToString()));
 	};
 	vars.DebugOutputVars = DebugOutputVars;
 	// INITIAL SETUP END
@@ -98,6 +105,8 @@ startup
 	settings.Add("MISC", false, "Miscellaneous");
 	settings.Add("MISC_ISLAND", false, "Next Island Reached", "MISC");
 	settings.SetToolTip("MISC_ISLAND", "Splits on the loading screen when entering Staunton Island from Portland, or Shoreside Vale from Staunton Island. Useful for segmenting collectible runs.");
+	settings.Add("MISC_ISLAND_ONCE", false, "Only Split Once on Each Island", "MISC_ISLAND");
+	settings.SetToolTip("MISC_ISLAND_ONCE", "Prevents splitting on future visits to Staunton Island and Shoreside Vale after they had been visited once.");
 	settings.Add("MISC_GULL", false, "Seagull Snipe% Final Split", "MISC");
 	settings.SetToolTip("MISC_GULL", "Splits when the Seagulls Sniped Counter goes above 0.");
 	
@@ -117,12 +126,12 @@ startup
 init
 {
 	// EMULATOR VERSION CONTROL
-	////vars.DebugOutputVersion("INIT - DETECTING EMULATOR VERSION...");
-	// Scan for the signature of `static int sceMpegRingbufferAvailableSize(u32 ringbufferAddr)` to get the address that's 22 bytes off the instruction that accesses the memory pointer
+	//// vars.DebugOutputVersion("INIT - DETECTING EMULATOR VERSION..."); ////
+	// Scan for the signature of `static int sceMpegRingbufferAvailableSize(u32 ringbufferAddr)` to get the address that's 22 bytes off the instruction that accesses the memory pointer.
 	var page = modules.First();
     var scanner = new SignatureScanner(game, page.BaseAddress, page.ModuleMemorySize);
     IntPtr ptr = scanner.Scan(new SigScanTarget(22, "41 B9 ?? 05 00 00 48 89 44 24 20 8D 4A FC E8 ?? ?? ?? FF 48 8B 0D ?? ?? ?? 00 48 03 CB"));
-	////vars.DebugOutputSigScan("INIT - BASE OFFSET SIGSCAN", ptr);
+	//// vars.DebugOutputSigScan("INIT - BASE OFFSET SIGSCAN", ptr); ////
 	
 	if (ptr != IntPtr.Zero)
 	{
@@ -132,10 +141,10 @@ init
 	}
 	else
 	{
-		// Switch to manual version detection if the signature scan fails
+		// Switch to manual version detection if the signature scan fails.
 		switch (modules.First().FileVersionInfo.FileVersion)	
 		{
-			// Add new versions to the top
+			// Add new versions to the top.
 			case "v1.9.3": version = "detected"; vars.EmulatorVersion = "v1.9.3" ; vars.OffsetToGame = 0xD8C010; break;
 			case "v1.9"  : version = "detected"; vars.EmulatorVersion = "v1.9"   ; vars.OffsetToGame = 0xD8AF70; break;
 			case "v1.8.0": version = "detected"; vars.EmulatorVersion = "v1.8.0" ; vars.OffsetToGame = 0xDC8FB0; break;
@@ -145,7 +154,7 @@ init
 			default      : version = "unknown" ; vars.EmulatorVersion = "unknown"; vars.OffsetToGame = 0x0     ; break;
 		}
 	}
-	////vars.DebugOutputVersion("INIT - EMULATOR VERSION DETECTED");
+	//// vars.DebugOutputVersion("INIT - EMULATOR VERSION DETECTED"); ////
 	// EMULATOR VERSION CONTROL END
 	
 	// MEMORY WATCHERS
@@ -191,22 +200,22 @@ init
 
 exit
 {
-	// Activate the Split Prevention Mechanism if it's enabled in settings
+	// Activate the Split Prevention Mechanism if it's enabled in settings.
 	if (settings["LGSP"])
 		vars.SplitPrevention = true;
 	
-	// Set emulator version to unrecognised
+	// Set emulator version to unrecognised.
 	version = "unknown";
 	vars.EmulatorVersion = "unknown";
 	vars.OffsetToGame = 0x0;
 	
-	////vars.DebugOutputVersion("EXIT");
-	////vars.DebugOutputVars("EXIT");
+	//// vars.DebugOutputVersion("EXIT"); ////
+	//// vars.DebugOutputVars("EXIT"); ////
 }
 
 update
 {
-	// Reset script variables when the timer is reset, so we don't need to rely on the start action in this script
+	// Reset script variables when the timer is reset, so we don't need to rely on the start action in this script.
 	if (timer.CurrentPhase != vars.PrevTimerPhase)
 	{
 		if (timer.CurrentPhase == TimerPhase.NotRunning)
@@ -214,61 +223,63 @@ update
 			vars.SplitPrevention = false;
 			vars.SplitMissionStart = false;
 			vars.SplitRampageStart = true;
-			////vars.DebugOutputVars("UPDATE - RESET VARS");
+			vars.SplitStauntonReached = true;
+			vars.SplitShoresideReached = true;
+			//// vars.DebugOutputVars("UPDATE - RESET VARS"); ////
 		}
 		vars.PrevTimerPhase = timer.CurrentPhase;
 	}
 	
-	// Prevent undefined functionality if emulator version is not recognised
+	// Prevent undefined functionality if emulator version is not recognised.
 	if (vars.EmulatorVersion == "unknown")
 	{
-		////vars.DebugOutputVersion("UNKNOWN EMULATOR VERSION");
+		//// vars.DebugOutputVersion("UNKNOWN EMULATOR VERSION"); ////
 		return false;
 	}
 	
-	// Update Memory Watchers to get the new values of the emulator/game variables
+	// Update Memory Watchers to get the new values of the emulator/game variables.
 	vars.MemoryWatchers.UpdateAll(game);
 	vars.ExportWatchers.UpdateAll(game);
 	
-	// Update script variables
+	// Update script variables.
 	if (settings["MT"] || settings["MISC_OBS_MA"])
 	{
-		// Reactivate splitting on the start of a mission when the Missions Passed Counter increases
+		// Reactivate splitting on the start of a mission when the Missions Passed Counter increases.
 		if (vars.MemoryWatchers["MissionsPassedCounter"].Current > vars.MemoryWatchers["MissionsPassedCounter"].Old)
 		{
 			vars.SplitMissionStart = true;
-			////vars.DebugOutputVars("UPDATE - SET VARS");
+			//// vars.DebugOutputVars("UPDATE - SET VARS"); ////
 		}
 	}
 	if (settings["COLL_RAMPS"])
 	{
-		// Reactivate splitting on the start of a rampage when the Rampages Completed counter increases
+		// Reactivate splitting on the start of a rampage when the Rampages Completed counter increases.
 		if (vars.MemoryWatchers["RampagesCompleted"].Current > vars.MemoryWatchers["RampagesCompleted"].Old)
 		{
 			vars.SplitRampageStart = true;
-			////vars.DebugOutputVars("UPDATE - SET VARS");
+			//// vars.DebugOutputVars("UPDATE - SET VARS"); ////
 		}
 	}
 	
 	// SPLIT PREVENTION MECHANISM
-	// This is far from foolproof, but it works for now
-	// Activate the Split Prevention Mechanism if the game is loading
+	// This is far from foolproof, but it works for now.
+	// Activate the Split Prevention Mechanism if the game is loading.
 	if (settings["LGSP"])
 	{
 		if (vars.MemoryWatchers["GameLoadingFlag"].Current == 1 && vars.MemoryWatchers["GameLoadingFlag"].Old == 0)
 		{
 			vars.SplitPrevention = true;
-			////vars.DebugOutputVars("UPDATE - LGSP");
+			//// vars.DebugOutputVars("UPDATE - LGSP"); ////
 		}
 	}
 	
-	// Deactivate the Split Prevention Mechanism if player gains control after loading save or if control is taken away by cutscene (during first mission)
+	// Deactivate the Split Prevention Mechanism if player gains control after loading save or if control is taken away by cutscene (eg during the first mission).
 	if (vars.SplitPrevention)
 	{
 		if ((vars.MemoryWatchers["PlayerControlLock"].Current == 0 && vars.MemoryWatchers["PlayerControlLock"].Old == 32) || vars.MemoryWatchers["PlayerControlLock"].Current == 160)
 		{
 			vars.SplitPrevention = false;
-			////vars.DebugOutputVars("UPDATE - LGSP");
+			////§debug// vars.DebugOutputVars("UPDATE - LGSP"); ////
 		}
 	}
 	// SPLIT PREVENTION MECHANISM END
@@ -276,77 +287,77 @@ update
 
 split
 {
-	// Prevent further functionality if the Split Prevention Mechanism is active
+	// Prevent further functionality if the Split Prevention Mechanism is active.
 	if (vars.SplitPrevention)
 		return false;
 	
 	// FINAL SPLITS
 	if (settings["FIN_ANY"])
 	{
-		// Split when the player loses control after defeating the final boss
+		// Split when the player loses control after defeating the final boss.
 		if (vars.MemoryWatchers["TheSicilianGambit_HelicopterBossDefeated"].Current == 1 && vars.MemoryWatchers["PlayerControlLock"].Current == 32 &&  vars.MemoryWatchers["PlayerControlLock"].Old == 0 && vars.MemoryWatchers["SalvatoreLeoneShoresideMissionChainCounter"].Current == 5 && vars.MemoryWatchers["OnMissionFlag"].Current == 1)
 			return true;
 	}
 	
 	if (settings["FIN_SALH5"])
 	{
-		// Split when the Salvatore Leone Shoreside Mission Chain Counter goes above 5 for the first time
+		// Split when the Salvatore Leone Shoreside Mission Chain Counter goes above 5 for the first time.
 		if (vars.MemoryWatchers["SalvatoreLeoneShoresideMissionChainCounter"].Current >= 6 && vars.MemoryWatchers["SalvatoreLeoneShoresideMissionChainCounter"].Old <= 5)
 			return true;
 	}
 	
 	if (settings["FIN_MAR5"])
 	{
-		// Split when the Maria Mission Chain Counter goes above 5 for the first time
+		// Split when the Maria Mission Chain Counter goes above 5 for the first time.
 		if (vars.MemoryWatchers["MariaMissionChainCounter"].Current >= 6 && vars.MemoryWatchers["MariaMissionChainCounter"].Old <= 5)
 			return true;
 	}
 	
 	if (settings["FIN_IGHUNDO"])
 	{
-		// Split when Completion Points counter goes above 170 for the first time
+		// Split when Completion Points counter goes above 170 for the first time.
 		if (vars.MemoryWatchers["CompletionPoints"].Current >= 171 && vars.MemoryWatchers["CompletionPoints"].Old <= 170)
 			return true;
 	}
 	
 	if (settings["FIN_PACK"])
 	{
-		 // Split when the Hidden Packages Collected counter goes above 99 for the first time
+		 // Split when the Hidden Packages Collected counter goes above 99 for the first time.
 		if (vars.MemoryWatchers["HiddenPackagesCollected"].Current >= 100 && vars.MemoryWatchers["HiddenPackagesCollected"].Old <= 99)
 			return true;
 	}
 	
 	if (settings["FIN_99PACK"])
 	{
-		 // Split when the Hidden Packages Collected counter goes above 98 for the first time
+		 // Split when the Hidden Packages Collected counter goes above 98 for the first time.
 		if (vars.MemoryWatchers["HiddenPackagesCollected"].Current >= 99 && vars.MemoryWatchers["HiddenPackagesCollected"].Old <= 98)
 			return true;
 	}
 	
 	if (settings["FIN_RAMP"])
 	{
-		// Split when the Rampages Completed counter goes above 19 for the first time when a rampage is passed
+		// Split when the Rampages Completed counter goes above 19 for the first time when a rampage is passed.
 		if (vars.MemoryWatchers["RampagesCompleted"].Current >= 20 && vars.MemoryWatchers["RampagesCompleted"].Old <= 19 && vars.MemoryWatchers["RampageState"].Current == 2)
 			return true;
 	}
 	
 	if (settings["FIN_USJ"])
 	{
-		// Split when the Unique Stunts Completed counter goes above 25 for the first time
+		// Split when the Unique Stunts Completed counter goes above 25 for the first time.
 		if (vars.MemoryWatchers["UniqueStuntsCompleted"].Current >= 26 && vars.MemoryWatchers["UniqueStuntsCompleted"].Old <= 25)
 			return true;
 	}
 	
 	if (settings["FIN_25USJ"])
 	{
-		// Split when the Unique Stunts Completed counter goes above 24 for the first time
+		// Split when the Unique Stunts Completed counter goes above 24 for the first time.
 		if (vars.MemoryWatchers["UniqueStuntsCompleted"].Current >= 25 && vars.MemoryWatchers["UniqueStuntsCompleted"].Old <= 24)
 			return true;
 	}
 	
 	if (settings["FIN_EXPORT"])
 	{
-		// Split when all elements of the Import/Export Vehicles Delivered Array go above 0 for the first time
+		// Split when all elements of the Import/Export Vehicles Delivered Array go above 0 for the first time.
 		MemoryWatcherList vehicleDeliveries = vars.ExportWatchers;
 		try
 		{
@@ -360,19 +371,19 @@ split
 	// MAIN SPLITS
 	if (settings["MT"])
 	{
-		// Split when the Current Mission Title changes but only if the Missions Passed Counter is increased between two attempts
+		// Split when the Current Mission Title changes, but only if the Missions Passed Counter is increased between two attempts.
 		if (vars.MemoryWatchers["CurrentMissionTitle"].Current != String.Empty && vars.MemoryWatchers["CurrentMissionTitle"].Old == String.Empty && vars.SplitMissionStart)
 		{
-			// Deactivate splitting for the next attempt
+			// Deactivate splitting for the next attempt.
 			vars.SplitMissionStart = false;
-			////vars.DebugOutputVars("SPLIT - SET VARS");
+			//// vars.DebugOutputVars("SPLIT - SET VARS"); ////
 			return true;
 		}
 	}
 	
 	if (settings["MP"])
 	{
-		// Split when the Missions Passed Counter increases
+		// Split when the Missions Passed Counter increases.
 		if (vars.MemoryWatchers["MissionsPassedCounter"].Current > vars.MemoryWatchers["MissionsPassedCounter"].Old)
 			return true;
 	}
@@ -381,10 +392,10 @@ split
 	// COLLECTIBLES
 	if (settings["COLL_PACK"])
 	{
-		// Split when the Hidden Packages Collected counter increases
+		// Split when the Hidden Packages Collected counter increases.
 		if (vars.MemoryWatchers["HiddenPackagesCollected"].Current > vars.MemoryWatchers["HiddenPackagesCollected"].Old)
 		{
-			// Check if splitting is disabled for the first two packages
+			// Check if splitting is disabled for the first two packages.
 			if (vars.MemoryWatchers["HiddenPackagesCollected"].Current > 2 || !settings["COLL_PACK_NO2"])
 				return true;
 		}
@@ -392,26 +403,26 @@ split
 	
 	if (settings["COLL_RAMPS"])
 	{
-		// Split when a rampage is started but only if the Rampages Completed Counter is increased between two attempts
+		// Split when a rampage is started, but only if the Rampages Completed Counter is increased between two attempts.
 		if (vars.MemoryWatchers["RampageState"].Current == 1 && vars.MemoryWatchers["RampageState"].Old != 1 && vars.SplitRampageStart)
 		{
-			// Deactivate splitting for the next attempt
+			// Deactivate splitting for the next attempt.
 			vars.SplitRampageStart = false;
-			////vars.DebugOutputVars("SPLIT - SET VARS");
+			//// vars.DebugOutputVars("SPLIT - SET VARS"); ////
 			return true;
 		}
 	}
 	
 	if (settings["COLL_RAMPP"])
 	{
-		// Split when the Rampages Completed counter increases when a rampage is passed
+		// Split when the Rampages Completed counter increases when a rampage is passed.
 		if (vars.MemoryWatchers["RampagesCompleted"].Current > vars.MemoryWatchers["RampagesCompleted"].Old && vars.MemoryWatchers["RampageState"].Current == 2)
 			return true;
 	}
 	
 	if (settings["COLL_USJ"])
 	{
-		// Split when the Unique Stunts Completed counter increases
+		// Split when the Unique Stunts Completed counter increases.
 		if (vars.MemoryWatchers["UniqueStuntsCompleted"].Current > vars.MemoryWatchers["UniqueStuntsCompleted"].Old)
 			return true;
 	}
@@ -420,33 +431,46 @@ split
 	// MISCELLANEOUS
 	if (settings["MISC_ISLAND"])
 	{
-		// Split when entering Staunton Island from Portland, or Shoreside Vale from Staunton Island
-		if ((vars.MemoryWatchers["CurrentIsland"].Current == 2 && vars.MemoryWatchers["CurrentIsland"].Old == 1) || (vars.MemoryWatchers["CurrentIsland"].Current == 3 && vars.MemoryWatchers["CurrentIsland"].Old == 2))
+		// Split when the loading screen appears when entering Staunton Island from Portland.
+		if (vars.MemoryWatchers["CurrentIsland"].Current == 2 && vars.MemoryWatchers["CurrentIsland"].Old == 1 && (!settings["MISC_ISLAND_ONCE"] || vars.SplitStauntonReached))
+		{
+			// Deactivate splitting when entering Staunton Island again.
+			vars.SplitStauntonReached = false;
+			//// vars.DebugOutputVars("SPLIT - SET VARS"); ////
 			return true;
+		}
+		// Split when the loading screen appears when entering Shoreside Vale from Staunton Island.
+		if (vars.MemoryWatchers["CurrentIsland"].Current == 3 && vars.MemoryWatchers["CurrentIsland"].Old == 2 && (!settings["MISC_ISLAND_ONCE"] || vars.SplitShoresideReached))
+		{
+			// Deactivate splitting when entering Shoreside Vale again.
+			vars.SplitShoresideReached = false;
+			//// vars.DebugOutputVars("SPLIT - SET VARS"); ////
+			return true;
+		}
 	}
 	
 	if (settings["MISC_GULL"])
 	{
-		// Split when the Seagulls Sniped Counter goes above 0 for the first time
+		// Split when the Seagulls Sniped Counter goes above 0 for the first time.
 		if (vars.MemoryWatchers["SeagullsSnipedCounter"].Current >= 1 && vars.MemoryWatchers["SeagullsSnipedCounter"].Old <= 0)
 			return true;
 	}
 	
 	if (settings["MISC_OBS_MA"])
 	{
-		// Split when the Mission Attempts Counter increases but only if the Missions Passed Counter is increased between two attempts
+		// Split when the Mission Attempts Counter increases, but only if the Missions Passed Counter is increased between two attempts.
 		if (vars.MemoryWatchers["MissionAttemptsCounter"].Current > vars.MemoryWatchers["MissionAttemptsCounter"].Old && vars.SplitMissionStart)
 		{
-			// Deactivate splitting for the next attempt
+			// Deactivate splitting for the next attempt.
 			vars.SplitMissionStart = false;
-			////vars.DebugOutputVars("SPLIT - SET VARS");
+			//// vars.DebugOutputVars("SPLIT - SET VARS"); ////
 			return true;
 		}
 	}
 	
 	if (settings["MISC_OBS_PERC"])
 	{
-		// Split when the Completion Points counter increases
+		// Split when the Completion Points Counter increases.
 		if (vars.MemoryWatchers["CompletionPoints"].Current > vars.MemoryWatchers["CompletionPoints"].Old)
 			return true;
 	}
@@ -455,20 +479,20 @@ split
 
 reset
 {
-	// Reset on the first cinematic cutscene after starting a new game
+	// Reset on the first cinematic cutscene after starting a new game.
 	if (vars.MemoryWatchers["MissionAttemptsCounter"].Current == 0 && vars.MemoryWatchers["PlayerControlLock"].Current == 160)
 	{
-		////vars.DebugOutputVars("RESET");
+		//// vars.DebugOutputVars("RESET"); ////
 		return true;
 	}
 }
 
 start
 {
-	// Start when the player gains control during the first mission
+	// Start when the player gains control during the first mission, or when a mission title is displayed and the option is enabled.
 	if ((vars.MemoryWatchers["PlayerControlLock"].Current == 0 && vars.MemoryWatchers["PlayerControlLock"].Old == 32 && vars.MemoryWatchers["MissionAttemptsCounter"].Current == 1 && vars.MemoryWatchers["OnMissionFlag"].Current == 1) || (settings["STARTT"] && vars.MemoryWatchers["CurrentMissionTitle"].Current != String.Empty && vars.MemoryWatchers["CurrentMissionTitle"].Old == String.Empty))
 	{
-		////vars.DebugOutputVars("START");
+		//// vars.DebugOutputVars("START"); ////
 		return true;
 	}
 }
