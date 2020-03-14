@@ -1,22 +1,38 @@
 <!-- Run at https://js.do/ or open it in your browser. -->
 <script>
-	// Initialisation
+	// Initialization
 	var GlobalZeroOffsets = new Map
 	([
-		["LCS_PSP_US_v1_UMD", 0x9F6BC00], // OMF: $560
-		["LCS_PSP_JP_RC", 0x9F6C400], // OMF: $560
-		["VCS_PSP_INT", 0x9F68400], // OMF: $789
-		["VCS_PSP_JP", 0x9F70000] // OMF $789
+		["LCS_PSP_Int_v1", 0x09F6BC00], // OMF: $560
+		["LCS_PSP_EUR_v2", 0x00000000], // OMF: $
+		["LCS_PSP_USA_v3", 0x00000000], // OMF: $
+		["LCS_PSP_EUR_v3", 0x00000000], // OMF: $
+		["LCS_PSP_JAP"   , 0x09F6C400], // OMF: $560
+		["VCS_PSP_Int"   , 0x09F68400], // OMF: $789
+		["VCS_PSP_JAP"   , 0x09F70000]  // OMF: $789
 	]);
 	
 	// Input
-	var GlobalZeroID = "LCS_PSP_US_v1_UMD";
+	var GlobalZeroID = "LCS_PSP_Int_v1";
 	var GlobalVars = [0];
+	var SplitOutputOffset = false;
 	
 	// Output
+	var header = GlobalZeroID + ", ";
+	if (SplitOutputOffset == true)
+		header += "SplitOutputOffset";
+	header = "<b>" + header + "</b><br>";
+	document.write(header);
+	
+	var globalZeroOffset = GlobalZeroOffsets.get(GlobalZeroID);
 	for (var i = 0; i < GlobalVars.length; i++)
 	{
-		var offset = GlobalZeroOffsets.get(GlobalZeroID) + (4 * GlobalVars[i]);
-			document.write(GlobalVars[i] + " --> " + offset.toString(16).toUpperCase() + "<br>");
+		var globalVarOffset = (4 * GlobalVars[i]);
+		if (SplitOutputOffset == true)
+			offset = "0x" + globalZeroOffset.toString(16).toUpperCase() + " + 0x" + globalVarOffset.toString(16).toUpperCase();
+		else
+			offset = "0x" + (globalZeroOffset + globalVarOffset).toString(16).toUpperCase();
+		var output = "$" + GlobalVars[i] + " ==> " + offset + "<br>";
+		document.write(output);
 	}
 </script>
