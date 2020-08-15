@@ -1,13 +1,13 @@
-/*	GTA Liberty City Stories Autosplitter (2020.01.15.)
+/*	GTA Liberty City Stories Autosplitter (2020.08.15.)
  *		Made by NABN00B
  *		https://github.com/DavidTamas/LiveSplit.Autosplitters
  *	Currently supports:
  * 		PPSSPP: 64-bit executable, v1.4 and later, standard or Gold
  *		GTA LCS: ULUS10041_1.05_ARTiSAN version ONLY
  *			╔════════════════════════╦═════════════════╦════════╦═══════════╦═════════╦════════╦══════════╦══════════════╦════════════╦══════════╗
- *			║ GAME VERSION           ║ SCRIPT          ║ REGION ║ SERIAL    ║ UMD VER ║ SOURCE ║ SUPPLIER ║ FILENAME     ║ DATE       ║ CRC32    ║
+ *			║ GAME VERSION           ║ SCRIPT          ║ REGION ║ SERIAL    ║ UMD VER ║ SOURCE ║ DUMPER   ║ FILENAME     ║ DATE       ║ CRC32    ║
  *			╠════════════════════════╬═════════════════╬════════╬═══════════╬═════════╬════════╬══════════╬══════════════╬════════════╬══════════╣
- *			║ ULUS10041_1.05_ARTiSAN ║ v1 (2005/10/12) ║ US     ║ ULUS10041 ║ 1.05    ║ UMD    ║ ARTiSAN  ║ a-gtalcs.xxx ║ 2005/10/25 ║ 87E2772E ║
+ *			║ ULUS10041_1.05_ARTiSAN ║ v1 (2005/10/12) ║ US     ║ ULUS10041 ║ 1.05    ║ UMD    ║ ARTiSAN  ║ a-gtalcs.iso ║ 2005/10/25 ║ 87E2772E ║
  *			╚════════════════════════╩═════════════════╩════════╩═══════════╩═════════╩════════╩══════════╩══════════════╩════════════╩══════════╝
  *	Contributors: zazaza691
  *	Testers: Fryterp23, PowerSlaveAlfons
@@ -47,17 +47,19 @@ startup
 	// Initialise debug output functions.
 	Action<string, IntPtr> DebugOutputSigScan = (source, ptr) =>
 	{
-		print(String.Format("{0} {1}\n{0} ResultPointer: 0x{2:X}", "[GTA LCS Autosplitter]", source, (long)ptr));
+		//print(String.Format("{0} {1}\n{0} ResultPointer: 0x{2:X}", "[GTA LCS Autosplitter]", source, (long)ptr));
 	};
 	vars.DebugOutputSigScan = DebugOutputSigScan;
+	
 	Action<string> DebugOutputVersion = (source) =>
 	{
-		print(String.Format("{0} {1}\n{0} EmulatorVersion: {2}, OffsetToGame: 0x{3:X}, (StateDescriptor: {4})", "[GTA LCS Autosplitter]", source, vars.EmulatorVersion, vars.OffsetToGame, version));
+		//print(String.Format("{0} {1}\n{0} EmulatorVersion: {2}, OffsetToGame: 0x{3:X}, (StateDescriptor: {4})", "[GTA LCS Autosplitter]", source, vars.EmulatorVersion, vars.OffsetToGame, version));
 	};
 	vars.DebugOutputVersion = DebugOutputVersion;
+	
 	Action<string> DebugOutputVars = (source) =>
 	{
-		print(String.Format("{0} {1}\n{0} SplitPrevention: {2}\n{0} SplitMissionStart: {3}\n{0} SplitRampageStart: {4}\n{0} SplitStauntonReached: {5}\n{0} SplitShoresideReached: {6}", "[GTA LCS Autosplitter]", source, vars.SplitPrevention.ToString(), vars.SplitMissionStart.ToString(), vars.SplitRampageStart.ToString(), vars.SplitStauntonReached.ToString(), vars.SplitShoresideReached.ToString()));
+		//print(String.Format("{0} {1}\n{0} SplitPrevention: {2}\n{0} SplitMissionStart: {3}\n{0} SplitRampageStart: {4}\n{0} SplitStauntonReached: {5}\n{0} SplitShoresideReached: {6}", "[GTA LCS Autosplitter]", source, vars.SplitPrevention.ToString(), vars.SplitMissionStart.ToString(), vars.SplitRampageStart.ToString(), vars.SplitStauntonReached.ToString(), vars.SplitShoresideReached.ToString()));
 	};
 	vars.DebugOutputVars = DebugOutputVars;
 	// INITIAL SETUP END
@@ -71,8 +73,10 @@ startup
 	settings.Add("COLL", false, "Collectibles");
 	settings.Add("COLL_PACK", false, "Hidden Package Collected", "COLL");
 	settings.SetToolTip("COLL_PACK", "Splits when the Hidden Packages Collected Counter increases.");
-	settings.Add("COLL_PACK_NO2", false, "Don't Split on First Two Packages", "COLL_PACK");
-	settings.SetToolTip("COLL_PACK_NO2", "Prevents splitting on the first two Hidden Packages. Helps to avoid fake splits using the 48:59 route.");
+	settings.Add("COLL_PACK_NO1", false, "Don't Split on the First Package", "COLL_PACK");
+	settings.SetToolTip("COLL_PACK_NO1", "Prevents splitting on the first Hidden Package. Helps avoiding a fake split depending on your route.");
+	settings.Add("COLL_PACK_NO2", false, "Don't Split on the Second Package", "COLL_PACK");
+	settings.SetToolTip("COLL_PACK_NO2", "Prevents splitting on the second Hidden Package. Helps avoiding a fake split depending on your route.");
 	settings.Add("COLL_RAMPS", false, "Rampage Started", "COLL");
 	settings.SetToolTip("COLL_RAMPS", "Splits when the Rampage State changes to 1, but only if the Rampages Passed Counter is increased between two attempts.");
 	settings.Add("COLL_RAMPP", false, "Rampage Completed", "COLL");
@@ -126,12 +130,12 @@ startup
 init
 {
 	// EMULATOR VERSION CONTROL
-	//// vars.DebugOutputVersion("INIT - DETECTING EMULATOR VERSION..."); ////
+	vars.DebugOutputVersion("INIT - DETECTING EMULATOR VERSION...");
 	// Scan for the signature of `static int sceMpegRingbufferAvailableSize(u32 ringbufferAddr)` to get the address that's 22 bytes off the instruction that accesses the memory pointer.
 	var page = modules.First();
     var scanner = new SignatureScanner(game, page.BaseAddress, page.ModuleMemorySize);
     IntPtr ptr = scanner.Scan(new SigScanTarget(22, "41 B9 ?? 05 00 00 48 89 44 24 20 8D 4A FC E8 ?? ?? ?? FF 48 8B 0D ?? ?? ?? 00 48 03 CB"));
-	//// vars.DebugOutputSigScan("INIT - BASE OFFSET SIGSCAN", ptr); ////
+	vars.DebugOutputSigScan("INIT - BASE OFFSET SIGSCAN", ptr);
 	
 	if (ptr != IntPtr.Zero)
 	{
@@ -145,16 +149,20 @@ init
 		switch (modules.First().FileVersionInfo.FileVersion)	
 		{
 			// Add new versions to the top.
-			case "v1.9.3": version = "detected"; vars.EmulatorVersion = "v1.9.3" ; vars.OffsetToGame = 0xD8C010; break;
-			case "v1.9"  : version = "detected"; vars.EmulatorVersion = "v1.9"   ; vars.OffsetToGame = 0xD8AF70; break;
-			case "v1.8.0": version = "detected"; vars.EmulatorVersion = "v1.8.0" ; vars.OffsetToGame = 0xDC8FB0; break;
-			case "v1.7.4": version = "detected"; vars.EmulatorVersion = "v1.7.4" ; vars.OffsetToGame = 0xD91250; break;
-			case "v1.7.1": version = "detected"; vars.EmulatorVersion = "v1.7.1" ; vars.OffsetToGame = 0xD91250; break;
-			case "v1.7"  : version = "detected"; vars.EmulatorVersion = "v1.7"   ; vars.OffsetToGame = 0xD90250; break;
-			default      : version = "unknown" ; vars.EmulatorVersion = "unknown"; vars.OffsetToGame = 0x0     ; break;
+			case "v1.10.3" : version = "detected"; vars.EmulatorVersion = "v1.10.3"; vars.OffsetToGame = 0xC54CB0; break;
+			case "v1.10.2" : version = "detected"; vars.EmulatorVersion = "v1.10.2"; vars.OffsetToGame = 0xC53CB0; break;
+			case "v1.10.1" : version = "detected"; vars.EmulatorVersion = "v1.10.1"; vars.OffsetToGame = 0xC53B00; break;
+			case "v1.10"   : version = "detected"; vars.EmulatorVersion = "v1.10"  ; vars.OffsetToGame = 0xC53AC0; break;
+			case "v1.9.3"  : version = "detected"; vars.EmulatorVersion = "v1.9.3" ; vars.OffsetToGame = 0xD8C010; break;
+			case "v1.9"    : version = "detected"; vars.EmulatorVersion = "v1.9"   ; vars.OffsetToGame = 0xD8AF70; break;
+			case "v1.8.0"  : version = "detected"; vars.EmulatorVersion = "v1.8.0" ; vars.OffsetToGame = 0xDC8FB0; break;
+			case "v1.7.4"  : version = "detected"; vars.EmulatorVersion = "v1.7.4" ; vars.OffsetToGame = 0xD91250; break;
+			case "v1.7.1"  : version = "detected"; vars.EmulatorVersion = "v1.7.1" ; vars.OffsetToGame = 0xD91250; break;
+			case "v1.7"    : version = "detected"; vars.EmulatorVersion = "v1.7"   ; vars.OffsetToGame = 0xD90250; break;
+			default        : version = "unknown" ; vars.EmulatorVersion = "unknown"; vars.OffsetToGame = 0x0     ; break;
 		}
 	}
-	//// vars.DebugOutputVersion("INIT - EMULATOR VERSION DETECTED"); ////
+	vars.DebugOutputVersion("INIT - EMULATOR VERSION DETECTED");
 	// EMULATOR VERSION CONTROL END
 	
 	// MEMORY WATCHERS
@@ -209,8 +217,8 @@ exit
 	vars.EmulatorVersion = "unknown";
 	vars.OffsetToGame = 0x0;
 	
-	//// vars.DebugOutputVersion("EXIT"); ////
-	//// vars.DebugOutputVars("EXIT"); ////
+	vars.DebugOutputVersion("EXIT");
+	vars.DebugOutputVars("EXIT");
 }
 
 update
@@ -225,7 +233,7 @@ update
 			vars.SplitRampageStart = true;
 			vars.SplitStauntonReached = true;
 			vars.SplitShoresideReached = true;
-			//// vars.DebugOutputVars("UPDATE - RESET VARS"); ////
+			vars.DebugOutputVars("UPDATE - RESET VARS");
 		}
 		vars.PrevTimerPhase = timer.CurrentPhase;
 	}
@@ -233,7 +241,7 @@ update
 	// Prevent undefined functionality if emulator version is not recognised.
 	if (vars.EmulatorVersion == "unknown")
 	{
-		//// vars.DebugOutputVersion("UNKNOWN EMULATOR VERSION"); ////
+		vars.DebugOutputVersion("UNKNOWN EMULATOR VERSION");
 		return false;
 	}
 	
@@ -248,7 +256,7 @@ update
 		if (vars.MemoryWatchers["MissionsPassedCounter"].Current > vars.MemoryWatchers["MissionsPassedCounter"].Old)
 		{
 			vars.SplitMissionStart = true;
-			//// vars.DebugOutputVars("UPDATE - SET VARS"); ////
+			vars.DebugOutputVars("UPDATE - SET VARS");
 		}
 	}
 	if (settings["COLL_RAMPS"])
@@ -257,7 +265,7 @@ update
 		if (vars.MemoryWatchers["RampagesCompleted"].Current > vars.MemoryWatchers["RampagesCompleted"].Old)
 		{
 			vars.SplitRampageStart = true;
-			//// vars.DebugOutputVars("UPDATE - SET VARS"); ////
+			vars.DebugOutputVars("UPDATE - SET VARS");
 		}
 	}
 	
@@ -269,7 +277,7 @@ update
 		if (vars.MemoryWatchers["GameLoadingFlag"].Current == 1 && vars.MemoryWatchers["GameLoadingFlag"].Old == 0)
 		{
 			vars.SplitPrevention = true;
-			//// vars.DebugOutputVars("UPDATE - LGSP"); ////
+			vars.DebugOutputVars("UPDATE - SPLIT PREVENTION");
 		}
 	}
 	
@@ -279,7 +287,7 @@ update
 		if ((vars.MemoryWatchers["PlayerControlLock"].Current == 0 && vars.MemoryWatchers["PlayerControlLock"].Old == 32) || vars.MemoryWatchers["PlayerControlLock"].Current == 160)
 		{
 			vars.SplitPrevention = false;
-			////§debug// vars.DebugOutputVars("UPDATE - LGSP"); ////
+			vars.DebugOutputVars("UPDATE - SPLIT PREVENTION");
 		}
 	}
 	// SPLIT PREVENTION MECHANISM END
@@ -376,7 +384,7 @@ split
 		{
 			// Deactivate splitting for the next attempt.
 			vars.SplitMissionStart = false;
-			//// vars.DebugOutputVars("SPLIT - SET VARS"); ////
+			vars.DebugOutputVars("SPLIT - SET VARS");
 			return true;
 		}
 	}
@@ -395,8 +403,12 @@ split
 		// Split when the Hidden Packages Collected counter increases.
 		if (vars.MemoryWatchers["HiddenPackagesCollected"].Current > vars.MemoryWatchers["HiddenPackagesCollected"].Old)
 		{
-			// Check if splitting is disabled for the first two packages.
-			if (vars.MemoryWatchers["HiddenPackagesCollected"].Current > 2 || !settings["COLL_PACK_NO2"])
+			// Check if splitting is disabled for the first few packages.
+			if (vars.MemoryWatchers["HiddenPackagesCollected"].Current >= 3)
+				return true;
+			else if (vars.MemoryWatchers["HiddenPackagesCollected"].Current == 2 && !settings["COLL_PACK_NO2"])
+				return true;
+			else if (vars.MemoryWatchers["HiddenPackagesCollected"].Current == 1 && !settings["COLL_PACK_NO1"])
 				return true;
 		}
 	}
@@ -408,7 +420,7 @@ split
 		{
 			// Deactivate splitting for the next attempt.
 			vars.SplitRampageStart = false;
-			//// vars.DebugOutputVars("SPLIT - SET VARS"); ////
+			vars.DebugOutputVars("SPLIT - SET VARS");
 			return true;
 		}
 	}
@@ -436,7 +448,7 @@ split
 		{
 			// Deactivate splitting when entering Staunton Island again.
 			vars.SplitStauntonReached = false;
-			//// vars.DebugOutputVars("SPLIT - SET VARS"); ////
+			vars.DebugOutputVars("SPLIT - SET VARS");
 			return true;
 		}
 		// Split when the loading screen appears when entering Shoreside Vale from Staunton Island.
@@ -444,7 +456,7 @@ split
 		{
 			// Deactivate splitting when entering Shoreside Vale again.
 			vars.SplitShoresideReached = false;
-			//// vars.DebugOutputVars("SPLIT - SET VARS"); ////
+			vars.DebugOutputVars("SPLIT - SET VARS");
 			return true;
 		}
 	}
@@ -463,7 +475,7 @@ split
 		{
 			// Deactivate splitting for the next attempt.
 			vars.SplitMissionStart = false;
-			//// vars.DebugOutputVars("SPLIT - SET VARS"); ////
+			vars.DebugOutputVars("SPLIT - SET VARS");
 			return true;
 		}
 	}
@@ -482,7 +494,7 @@ reset
 	// Reset on the first cinematic cutscene after starting a new game.
 	if (vars.MemoryWatchers["MissionAttemptsCounter"].Current == 0 && vars.MemoryWatchers["PlayerControlLock"].Current == 160)
 	{
-		//// vars.DebugOutputVars("RESET"); ////
+		vars.DebugOutputVars("RESET");
 		return true;
 	}
 }
@@ -492,7 +504,7 @@ start
 	// Start when the player gains control during the first mission, or when a mission title is displayed and the option is enabled.
 	if ((vars.MemoryWatchers["PlayerControlLock"].Current == 0 && vars.MemoryWatchers["PlayerControlLock"].Old == 32 && vars.MemoryWatchers["MissionAttemptsCounter"].Current == 1 && vars.MemoryWatchers["OnMissionFlag"].Current == 1) || (settings["STARTT"] && vars.MemoryWatchers["CurrentMissionTitle"].Current != String.Empty && vars.MemoryWatchers["CurrentMissionTitle"].Old == String.Empty))
 	{
-		//// vars.DebugOutputVars("START"); ////
+		vars.DebugOutputVars("START");
 		return true;
 	}
 }
