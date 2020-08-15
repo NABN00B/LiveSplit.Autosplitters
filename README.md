@@ -9,7 +9,7 @@ This repository serves the purpose of easing the development and publication of 
 <br>
 
 * [Cheat Engine Tutorials](https://wiki.cheatengine.org/index.php?title=Tutorials)
-* [LiveSplit ASL Documentation](https://github.com/LiveSplit/LiveSplit/blob/master/Documentation/Auto-Splitters.md)
+* [LiveSplit ASL Documentation](https://github.com/LiveSplit/LiveSplit.AutoSplitters/blob/master/README.md)
 <br>
 
 * [FivEawE's GTA VCS Autosplitter](https://github.com/FivEawE/AutoSplitterGTAVCS)
