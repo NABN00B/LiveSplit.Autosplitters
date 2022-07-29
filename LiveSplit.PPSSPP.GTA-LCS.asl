@@ -1,19 +1,21 @@
-/*	GTA Liberty City Stories Autosplitter (2020.08.15.)
+/*	GTA Liberty City Stories Autosplitter (2022.07.29.)
  *		Made by NABN00B
  *		https://github.com/DavidTamas/LiveSplit.Autosplitters
  *	Currently supports:
  * 		PPSSPP: 64-bit executable, v1.4 and later, standard or Gold
  *		GTA LCS: ULUS10041_1.05_ARTiSAN version ONLY
- *			╔════════════════════════╦═════════════════╦════════╦═══════════╦═════════╦════════╦══════════╦══════════════╦════════════╦══════════╗
- *			║ GAME VERSION           ║ SCRIPT          ║ REGION ║ SERIAL    ║ UMD VER ║ SOURCE ║ DUMPER   ║ FILENAME     ║ DATE       ║ CRC32    ║
- *			╠════════════════════════╬═════════════════╬════════╬═══════════╬═════════╬════════╬══════════╬══════════════╬════════════╬══════════╣
- *			║ ULUS10041_1.05_ARTiSAN ║ v1 (2005/10/12) ║ US     ║ ULUS10041 ║ 1.05    ║ UMD    ║ ARTiSAN  ║ a-gtalcs.iso ║ 2005/10/25 ║ 87E2772E ║
- *			╚════════════════════════╩═════════════════╩════════╩═══════════╩═════════╩════════╩══════════╩══════════════╩════════════╩══════════╝
- *	Contributors: zazaza691
+ *			╔════════════════════════╦═════════════════╦════════╦═══════════╦═════════╦════════╦═════════╦══════════════╦════════════╦══════════╗
+ *			║ GAME VERSION           ║ SCRIPT          ║ REGION ║ SERIAL    ║ UMD VER ║ SOURCE ║ SCENE   ║ FILENAME     ║ FILE DATE  ║ CRC32    ║
+ *			╠════════════════════════╬═════════════════╬════════╬═══════════╬═════════╬════════╬═════════╬══════════════╬════════════╬══════════╣
+ *			║ ULUS10041_1.05_ARTiSAN ║ v1 (2005/10/12) ║ US     ║ ULUS10041 ║ 1.05    ║ UMD    ║ ARTiSAN ║ a-gtalcs.iso ║ 2005/10/25 ║ 87E2772E ║
+ *			╚════════════════════════╩═════════════════╩════════╩═══════════╩═════════╩════════╩═════════╩══════════════╩════════════╩══════════╝
+ *	Contributors:
+ *		NoTeefy: multi-level pointers, ASL support
+ *		Parik: reverse engineering, emulator version detection via signature scanning
+ *		zazaza691: ideas and fixes
  *	Testers: Fryterp23, PowerSlaveAlfons
  *	Thanks to:
- *		Nick007J for Control Lock values,
- *		Parik for emulator version detection via signature scanning,
+ *		Nick007J for Player Control Lock values,
  *		Patrick for early Cheat Engine advice,
  *		Powdinet for Rampage State values and telling me how to find offsets of global MAIN.SCM variables,
  *		iguana, KZ_FREW, pitp0, tduva and zoton2 for their previous work
@@ -22,7 +24,7 @@
 
 // 64-bit exe only.
 state("PPSSPPWindows64", "unknown") { }
-state("PPSSPPWindows64", "detected") { }
+state("PPSSPPWindows64", "PPSSPP detected") { }
 
 
 startup
@@ -43,6 +45,9 @@ startup
 	vars.SplitRampageStart = true;
 	vars.SplitStauntonReached = true;
 	vars.SplitShoresideReached = true;
+	vars.CurrentVehicleModel = (short)0;
+	vars.SplitStauntonSpeeder = true;
+	vars.SplitShoresidePredator = true;
 	
 	// Initialise debug output functions.
 	Action<string, IntPtr> DebugOutputSigScan = (source, ptr) =>
@@ -59,9 +64,15 @@ startup
 	
 	Action<string> DebugOutputVars = (source) =>
 	{
-		//print(String.Format("{0} {1}\n{0} SplitPrevention: {2}\n{0} SplitMissionStart: {3}\n{0} SplitRampageStart: {4}\n{0} SplitStauntonReached: {5}\n{0} SplitShoresideReached: {6}", "[GTA LCS Autosplitter]", source, vars.SplitPrevention.ToString(), vars.SplitMissionStart.ToString(), vars.SplitRampageStart.ToString(), vars.SplitStauntonReached.ToString(), vars.SplitShoresideReached.ToString()));
+		//print(String.Format("{0} {1}\n{0} SplitPrevention: {2}\n{0} SplitMissionStart: {3}\n{0} SplitRampageStart: {4}\n{0} SplitStauntonReached: {5}\n{0} SplitShoresideReached: {6}\n{0} SplitStauntonSpeeder: {7}\n{0} SplitShoresidePredator: {8}", "[GTA LCS Autosplitter]", source, vars.SplitPrevention.ToString(), vars.SplitMissionStart.ToString(), vars.SplitRampageStart.ToString(), vars.SplitStauntonReached.ToString(), vars.SplitShoresideReached.ToString(), vars.SplitStauntonSpeeder.ToString(), vars.SplitShoresidePredator.ToString()));
 	};
 	vars.DebugOutputVars = DebugOutputVars;
+	
+	Action<string, long> DebugCurrentVehicleModel = (source, currentVehicle) =>
+	{
+		//print(String.Format("{0} {1}\n{0} currentVehicle: 0x{2:X}\n{0} CurrentVehicleModel: {3}", "[GTA LCS Autosplitter]", source, currentVehicle, vars.CurrentVehicleModel));
+	};
+	vars.DebugCurrentVehicleModel = DebugCurrentVehicleModel;																																						
 	// INITIAL SETUP END
 	
 	// SETTINGS
@@ -109,8 +120,14 @@ startup
 	settings.Add("MISC", false, "Miscellaneous");
 	settings.Add("MISC_ISLAND", false, "Next Island Reached", "MISC");
 	settings.SetToolTip("MISC_ISLAND", "Splits on the loading screen when entering Staunton Island from Portland, or Shoreside Vale from Staunton Island. Useful for segmenting collectible runs.");
-	settings.Add("MISC_ISLAND_ONCE", false, "Only Split Once on Each Island", "MISC_ISLAND");
-	settings.SetToolTip("MISC_ISLAND_ONCE", "Prevents splitting on future visits to Staunton Island and Shoreside Vale after they had been visited once.");
+	settings.Add("MISC_ISLAND_SI1", false, "Only Split Once on Staunton Island", "MISC_ISLAND");
+	settings.SetToolTip("MISC_ISLAND_SI1", "Prevents splitting on future visits to Staunton Island after it had been visited already.");
+	settings.Add("MISC_ISLAND_SSV1", false, "Only Split Once on Shoreside Vale", "MISC_ISLAND");
+	settings.SetToolTip("MISC_ISLAND_SSV1", "Prevents splitting on future visits to Shoreside Vale after it had been visited already.");
+	settings.Add("MISC_BOAT", false, "Boat Splits", "MISC");
+	settings.SetToolTip("MISC_BOAT", "Splits when entering a Speeder in Staunton Island or a Predator in Shoreside Vale for the first time.");
+	settings.Add("MISC_SLACKER", false, "\"Slacker\" Displayed", "MISC");
+	settings.SetToolTip("MISC_SLACKER", "Splits when the mission title of \"Slacker\" gets displayed, but only if the Missions Passed Counter is increased between two attempts.");
 	settings.Add("MISC_GULL", false, "Seagull Snipe% Final Split", "MISC");
 	settings.SetToolTip("MISC_GULL", "Splits when the Seagulls Sniped Counter goes above 0.");
 	
@@ -132,34 +149,57 @@ init
 	// EMULATOR VERSION CONTROL
 	vars.DebugOutputVersion("INIT - DETECTING EMULATOR VERSION...");
 	// Scan for the signature of `static int sceMpegRingbufferAvailableSize(u32 ringbufferAddr)` to get the address that's 22 bytes off the instruction that accesses the memory pointer.
+	// This signature scan only works from v1.4 up to v1.12.3!
 	var page = modules.First();
-    var scanner = new SignatureScanner(game, page.BaseAddress, page.ModuleMemorySize);
-    IntPtr ptr = scanner.Scan(new SigScanTarget(22, "41 B9 ?? 05 00 00 48 89 44 24 20 8D 4A FC E8 ?? ?? ?? FF 48 8B 0D ?? ?? ?? 00 48 03 CB"));
+	var scanner = new SignatureScanner(game, page.BaseAddress, page.ModuleMemorySize);
+	IntPtr ptr = scanner.Scan(new SigScanTarget(22, "41 B9 ?? 05 00 00 48 89 44 24 20 8D 4A FC E8 ?? ?? ?? FF 48 8B 0D ?? ?? ?? 00 48 03 CB"));
 	vars.DebugOutputSigScan("INIT - BASE OFFSET SIGSCAN", ptr);
 	
 	if (ptr != IntPtr.Zero)
 	{
 		vars.OffsetToGame = (int) ((long)ptr - (long)page.BaseAddress + game.ReadValue<int>(ptr) + 0x4);
-		version = "detected";
+		version = "PPSSPP detected";
 		vars.EmulatorVersion = modules.First().FileVersionInfo.FileVersion;
 	}
+	// Switch to manual version detection if the signature scan fails.
 	else
 	{
-		// Switch to manual version detection if the signature scan fails.
-		switch (modules.First().FileVersionInfo.FileVersion)	
+		vars.DebugOutputVersion("INIT - DETECTING EMULATOR VERSION MANUALLY...");
+		var fileVersion = modules.First().FileVersionInfo.FileVersion;
+		switch (fileVersion)
 		{
 			// Add new versions to the top.
-			case "v1.10.3" : version = "detected"; vars.EmulatorVersion = "v1.10.3"; vars.OffsetToGame = 0xC54CB0; break;
-			case "v1.10.2" : version = "detected"; vars.EmulatorVersion = "v1.10.2"; vars.OffsetToGame = 0xC53CB0; break;
-			case "v1.10.1" : version = "detected"; vars.EmulatorVersion = "v1.10.1"; vars.OffsetToGame = 0xC53B00; break;
-			case "v1.10"   : version = "detected"; vars.EmulatorVersion = "v1.10"  ; vars.OffsetToGame = 0xC53AC0; break;
-			case "v1.9.3"  : version = "detected"; vars.EmulatorVersion = "v1.9.3" ; vars.OffsetToGame = 0xD8C010; break;
-			case "v1.9"    : version = "detected"; vars.EmulatorVersion = "v1.9"   ; vars.OffsetToGame = 0xD8AF70; break;
-			case "v1.8.0"  : version = "detected"; vars.EmulatorVersion = "v1.8.0" ; vars.OffsetToGame = 0xDC8FB0; break;
-			case "v1.7.4"  : version = "detected"; vars.EmulatorVersion = "v1.7.4" ; vars.OffsetToGame = 0xD91250; break;
-			case "v1.7.1"  : version = "detected"; vars.EmulatorVersion = "v1.7.1" ; vars.OffsetToGame = 0xD91250; break;
-			case "v1.7"    : version = "detected"; vars.EmulatorVersion = "v1.7"   ; vars.OffsetToGame = 0xD90250; break;
-			default        : version = "unknown" ; vars.EmulatorVersion = "unknown"; vars.OffsetToGame = 0x0     ; break;
+			case "v1.13.1" : vars.OffsetToGame = 0xDEA130; break;
+			case "v1.13"   : vars.OffsetToGame = 0xDE90F0; break;
+			case "v1.12.3" : vars.OffsetToGame = 0xD96108; break;
+			case "v1.12.2" : vars.OffsetToGame = 0xD96108; break;
+			case "v1.12.1" : vars.OffsetToGame = 0xD97108; break;
+			case "v1.12"   : vars.OffsetToGame = 0xD960F8; break;
+			case "v1.11.3" : vars.OffsetToGame = 0xC6A440; break;
+			case "v1.11.2" : vars.OffsetToGame = 0xC6A440; break;
+			case "v1.11.1" : vars.OffsetToGame = 0xC6A440; break;
+			case "v1.11"   : vars.OffsetToGame = 0xC68320; break;
+			case "v1.10.3" : vars.OffsetToGame = 0xC54CB0; break;
+			case "v1.10.2" : vars.OffsetToGame = 0xC53CB0; break;
+			case "v1.10.1" : vars.OffsetToGame = 0xC53B00; break;
+			case "v1.10"   : vars.OffsetToGame = 0xC53AC0; break;
+			case "v1.9.3"  : vars.OffsetToGame = 0xD8C010; break;
+			case "v1.9"    : vars.OffsetToGame = 0xD8AF70; break;
+			case "v1.8.0"  : vars.OffsetToGame = 0xDC8FB0; break;
+			case "v1.7.4"  : vars.OffsetToGame = 0xD91250; break;
+			case "v1.7.1"  : vars.OffsetToGame = 0xD91250; break;
+			case "v1.7"    : vars.OffsetToGame = 0xD90250; break;
+			default        : vars.OffsetToGame = 0x0     ; break;
+		}
+		if (vars.OffsetToGame != 0)
+		{
+			vars.EmulatorVersion = fileVersion;
+			version = "PPSSPP detected";
+		}
+		else
+		{
+			vars.EmulatorVersion = "unknown";
+			version = "unknown";
 		}
 	}
 	vars.DebugOutputVersion("INIT - EMULATOR VERSION DETECTED");
@@ -172,6 +212,7 @@ init
 		vars.ExportWatchers = new MemoryWatcherList();
 		
 		// Game Variables, General
+		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x8B5E114)) { Name = "CurrentVehicle" });																																																														 
 		vars.MemoryWatchers.Add(new MemoryWatcher<float>(new DeepPointer(vars.OffsetToGame, 0x8B5E158)) { Name = "CompletionPoints" });
 		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x8B5E354)) { Name = "CurrentIsland" });
 		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x8B5E45C)) { Name = "RampageState" });
@@ -233,6 +274,9 @@ update
 			vars.SplitRampageStart = true;
 			vars.SplitStauntonReached = true;
 			vars.SplitShoresideReached = true;
+			vars.CurrentVehicleModel = 0;
+			vars.SplitStauntonSpeeder = true;
+			vars.SplitShoresidePredator = true;																
 			vars.DebugOutputVars("UPDATE - RESET VARS");
 		}
 		vars.PrevTimerPhase = timer.CurrentPhase;
@@ -250,7 +294,7 @@ update
 	vars.ExportWatchers.UpdateAll(game);
 	
 	// Update script variables.
-	if (settings["MT"] || settings["MISC_OBS_MA"])
+	if (settings["MT"] || settings["MISC_OBS_MA"] || settings["MISC_SLACKER"])
 	{
 		// Reactivate splitting on the start of a mission when the Missions Passed Counter increases.
 		if (vars.MemoryWatchers["MissionsPassedCounter"].Current > vars.MemoryWatchers["MissionsPassedCounter"].Old)
@@ -266,6 +310,25 @@ update
 		{
 			vars.SplitRampageStart = true;
 			vars.DebugOutputVars("UPDATE - SET VARS");
+		}
+	}
+	if (settings["MISC_BOAT"] && (vars.SplitStauntonSpeeder || vars.SplitShoresidePredator))
+	{
+		// Check if the player entered a vehicle.
+		if (vars.MemoryWatchers["CurrentVehicle"].Current != vars.MemoryWatchers["CurrentVehicle"].Old && vars.MemoryWatchers["CurrentVehicle"].Current != 0)
+		{
+			IntPtr basePtr = IntPtr.Zero;
+			IntPtr currentVehicle = IntPtr.Zero;
+			short currentVehicleModel = 0;
+			
+			// Get the model of the player's current vehicle.
+			memory.ReadPointer((IntPtr)(modules.First().BaseAddress + vars.OffsetToGame), out basePtr);
+			memory.ReadPointer((IntPtr)(basePtr + 0x8B5E114), false, out currentVehicle);
+			IntPtr vehicleModelPtr = new IntPtr((long)basePtr + (int)currentVehicle);
+			memory.ReadValue<short>((IntPtr)(vehicleModelPtr + 0x58), out currentVehicleModel);
+			vars.CurrentVehicleModel = currentVehicleModel;
+			vars.DebugCurrentVehicleModel("UPDATE - CURRENT VEHICLE", (int)currentVehicle);
+			//print(String.Format("[GTA LCS Autosplitter] 0x{0:X}", (long)(vehicleModelPtr + 0x58)));	 
 		}
 	}
 	
@@ -444,7 +507,7 @@ split
 	if (settings["MISC_ISLAND"])
 	{
 		// Split when the loading screen appears when entering Staunton Island from Portland.
-		if (vars.MemoryWatchers["CurrentIsland"].Current == 2 && vars.MemoryWatchers["CurrentIsland"].Old == 1 && (!settings["MISC_ISLAND_ONCE"] || vars.SplitStauntonReached))
+		if (vars.MemoryWatchers["CurrentIsland"].Current == 2 && vars.MemoryWatchers["CurrentIsland"].Old == 1 && (!settings["MISC_ISLAND_SI1"] || vars.SplitStauntonReached))
 		{
 			// Deactivate splitting when entering Staunton Island again.
 			vars.SplitStauntonReached = false;
@@ -452,10 +515,42 @@ split
 			return true;
 		}
 		// Split when the loading screen appears when entering Shoreside Vale from Staunton Island.
-		if (vars.MemoryWatchers["CurrentIsland"].Current == 3 && vars.MemoryWatchers["CurrentIsland"].Old == 2 && (!settings["MISC_ISLAND_ONCE"] || vars.SplitShoresideReached))
+		if (vars.MemoryWatchers["CurrentIsland"].Current == 3 && vars.MemoryWatchers["CurrentIsland"].Old == 2 && (!settings["MISC_ISLAND_SSV1"] || vars.SplitShoresideReached))
 		{
 			// Deactivate splitting when entering Shoreside Vale again.
 			vars.SplitShoresideReached = false;
+			vars.DebugOutputVars("SPLIT - SET VARS");
+			return true;
+		}
+	}
+	
+	if (settings["MISC_BOAT"])
+	{
+		// Split when the player enters a Speeder on Staunton Island.
+		if (vars.MemoryWatchers["CurrentIsland"].Current == 2 && vars.CurrentVehicleModel == 194 && vars.SplitStauntonSpeeder)
+		{
+			// Deactivate splitting when entering a Speeder on Staunton Island again.
+			vars.SplitStauntonSpeeder = false;
+			vars.DebugOutputVars("SPLIT - SET VARS");
+			return true;
+		}
+		// Split when the player enters a Predator on Shoreside Vale.
+		if (vars.MemoryWatchers["CurrentIsland"].Current == 3 && vars.CurrentVehicleModel == 196 && vars.SplitShoresidePredator)
+		{
+			vars.SplitShoresidePredator = false;
+			// Deactivate splitting when entering a Predator on Shoreside Vale again.
+			vars.DebugOutputVars("SPLIT - SET VARS");						 
+			return true;
+		}
+	}
+	
+	if (settings["MISC_SLACKER"])
+	{
+		// Split when the Current Mission Title changes to "Slacker", but only if the Missions Passed Counter is increased between two attempts.
+		if (vars.MemoryWatchers["CurrentMissionTitle"].Current == "Slacker" && vars.MemoryWatchers["CurrentMissionTitle"].Old == String.Empty && vars.SplitMissionStart)
+		{
+			// Deactivate splitting for the next attempt.
+			vars.SplitMissionStart = false;
 			vars.DebugOutputVars("SPLIT - SET VARS");
 			return true;
 		}
@@ -489,20 +584,29 @@ split
 	// MISCELLANEOUS END
 }
 
+/*
 reset
 {
-	// Reset on the first cinematic cutscene after starting a new game.
+	// Reset on the first cinematic cutscene after starting a new game (old timing).
 	if (vars.MemoryWatchers["MissionAttemptsCounter"].Current == 0 && vars.MemoryWatchers["PlayerControlLock"].Current == 160)
 	{
 		vars.DebugOutputVars("RESET");
 		return true;
 	}
 }
+*/
 
 start
 {
-	// Start when the player gains control during the first mission, or when a mission title is displayed and the option is enabled.
-	if ((vars.MemoryWatchers["PlayerControlLock"].Current == 0 && vars.MemoryWatchers["PlayerControlLock"].Old == 32 && vars.MemoryWatchers["MissionAttemptsCounter"].Current == 1 && vars.MemoryWatchers["OnMissionFlag"].Current == 1) || (settings["STARTT"] && vars.MemoryWatchers["CurrentMissionTitle"].Current != String.Empty && vars.MemoryWatchers["CurrentMissionTitle"].Old == String.Empty))
+	if
+	(
+		// Start when the player gains control during the first mission (old timing).
+		//(vars.MemoryWatchers["PlayerControlLock"].Current == 0 && vars.MemoryWatchers["PlayerControlLock"].Old == 32 && vars.MemoryWatchers["MissionAttemptsCounter"].Current == 1 && vars.MemoryWatchers["OnMissionFlag"].Current == 1)
+		// Start when the initial loading screen is displayed (new timing, experimental).
+		(vars.MemoryWatchers["GameLoadingFlag"].Current == 1 && vars.MemoryWatchers["GameLoadingFlag"].Old == 0)
+		// Start when a mission title is displayed and the option is enabled.
+		|| (settings["STARTT"] && vars.MemoryWatchers["CurrentMissionTitle"].Current != String.Empty && vars.MemoryWatchers["CurrentMissionTitle"].Old == String.Empty)
+	)
 	{
 		vars.DebugOutputVars("START");
 		return true;
