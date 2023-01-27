@@ -1,4 +1,4 @@
-/*	GTA Liberty City Stories Autosplitter (2022.12.22.)
+/*	GTA Liberty City Stories Autosplitter (2023.01.27.)
  *		Made by NABN00B
  *		https://github.com/DavidTamas/LiveSplit.Autosplitters
  *	Currently supports:
@@ -169,6 +169,9 @@ init
 		switch (fileVersion)
 		{
 			// Add new versions to the top.
+			case "v1.14.4" : vars.OffsetToGame = 0xDF8E58; break;
+			case "v1.14.3" : vars.OffsetToGame = 0xDF8E58; break;
+			case "v1.14.2" : vars.OffsetToGame = 0xDF7E58; break;
 			case "v1.14.1" : vars.OffsetToGame = 0xDF5DD8; break;
 			case "v1.14"   : vars.OffsetToGame = 0xDF5C68; break;
 			case "v1.13.2" : vars.OffsetToGame = 0xDF10F0; break;
