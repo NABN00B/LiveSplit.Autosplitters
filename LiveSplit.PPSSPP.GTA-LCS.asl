@@ -1,4 +1,4 @@
-/*	GTA Liberty City Stories Autosplitter (2023.01.27.)
+/*	GTA Liberty City Stories Autosplitter (2023.04.06.)
  *		Made by NABN00B
  *		https://github.com/DavidTamas/LiveSplit.Autosplitters
  *	Currently supports:
@@ -36,7 +36,7 @@ startup
 	// Initialise variables used for emulator version control.
 	version = "unknown";
 	vars.EmulatorVersion = "unknown";
-	vars.OffsetToGame = 0x0;
+	vars.MemorySpaceOffset = 0;
 	
 	// Initialise variables used in autosplitter logic.
 	vars.PrevTimerPhase = null;
@@ -58,7 +58,7 @@ startup
 	
 	Action<string> DebugOutputVersion = (source) =>
 	{
-		//print(String.Format("{0} {1}\n{0} EmulatorVersion: {2}, OffsetToGame: 0x{3:X}, (StateDescriptor: {4})", "[GTA LCS Autosplitter]", source, vars.EmulatorVersion, vars.OffsetToGame, version));
+		//print(String.Format("{0} {1}\n{0} EmulatorVersion: {2}, MemorySpaceOffset: 0x{3:X}, (StateDescriptor: {4})", "[GTA LCS Autosplitter]", source, vars.EmulatorVersion, vars.MemorySpaceOffset, version));
 	};
 	vars.DebugOutputVersion = DebugOutputVersion;
 	
@@ -157,7 +157,7 @@ init
 	
 	if (ptr != IntPtr.Zero)
 	{
-		vars.OffsetToGame = (int) ((long)ptr - (long)page.BaseAddress + game.ReadValue<int>(ptr) + 0x4);
+		vars.MemorySpaceOffset = (int) ((long)ptr - (long)page.BaseAddress + game.ReadValue<int>(ptr) + 0x4);
 		version = "PPSSPP detected";
 		vars.EmulatorVersion = modules.First().FileVersionInfo.FileVersion;
 	}
@@ -169,36 +169,32 @@ init
 		switch (fileVersion)
 		{
 			// Add new versions to the top.
-			case "v1.14.4" : vars.OffsetToGame = 0xDF8E58; break;
-			case "v1.14.3" : vars.OffsetToGame = 0xDF8E58; break;
-			case "v1.14.2" : vars.OffsetToGame = 0xDF7E58; break;
-			case "v1.14.1" : vars.OffsetToGame = 0xDF5DD8; break;
-			case "v1.14"   : vars.OffsetToGame = 0xDF5C68; break;
-			case "v1.13.2" : vars.OffsetToGame = 0xDF10F0; break;
-			case "v1.13.1" : vars.OffsetToGame = 0xDEA130; break;
-			case "v1.13"   : vars.OffsetToGame = 0xDE90F0; break;
-			case "v1.12.3" : vars.OffsetToGame = 0xD96108; break;
-			case "v1.12.2" : vars.OffsetToGame = 0xD96108; break;
-			case "v1.12.1" : vars.OffsetToGame = 0xD97108; break;
-			case "v1.12"   : vars.OffsetToGame = 0xD960F8; break;
-			case "v1.11.3" : vars.OffsetToGame = 0xC6A440; break;
-			case "v1.11.2" : vars.OffsetToGame = 0xC6A440; break;
-			case "v1.11.1" : vars.OffsetToGame = 0xC6A440; break;
-			case "v1.11"   : vars.OffsetToGame = 0xC68320; break;
-			case "v1.10.3" : vars.OffsetToGame = 0xC54CB0; break;
-			case "v1.10.2" : vars.OffsetToGame = 0xC53CB0; break;
-			case "v1.10.1" : vars.OffsetToGame = 0xC53B00; break;
-			case "v1.10"   : vars.OffsetToGame = 0xC53AC0; break;
-			case "v1.9.3"  : vars.OffsetToGame = 0xD8C010; break;
-			case "v1.9"    : vars.OffsetToGame = 0xD8AF70; break;
-			case "v1.8.0"  : vars.OffsetToGame = 0xDC8FB0; break;
-			case "v1.7.4"  : vars.OffsetToGame = 0xD91250; break;
-			case "v1.7.1"  : vars.OffsetToGame = 0xD91250; break;
-			case "v1.7"    : vars.OffsetToGame = 0xD90250; break;
-			case "v1.3"    : vars.OffsetToGame = 0xF34488; break;
-			default        : vars.OffsetToGame = 0x0     ; break;
+			case "v1.14.1" : vars.MemorySpaceOffset = 0xDF5DD8; break;
+			case "v1.14"   : vars.MemorySpaceOffset = 0xDF5C68; break;
+			case "v1.13.2" : vars.MemorySpaceOffset = 0xDF10F0; break;
+			case "v1.13.1" : vars.MemorySpaceOffset = 0xDEA130; break;
+			case "v1.13"   : vars.MemorySpaceOffset = 0xDE90F0; break;
+			case "v1.12.3" : vars.MemorySpaceOffset = 0xD96108; break;
+			case "v1.12.2" : vars.MemorySpaceOffset = 0xD96108; break;
+			case "v1.12.1" : vars.MemorySpaceOffset = 0xD97108; break;
+			case "v1.12"   : vars.MemorySpaceOffset = 0xD960F8; break;
+			case "v1.11.3" : vars.MemorySpaceOffset = 0xC6A440; break;
+			case "v1.11.2" : vars.MemorySpaceOffset = 0xC6A440; break;
+			case "v1.11.1" : vars.MemorySpaceOffset = 0xC6A440; break;
+			case "v1.11"   : vars.MemorySpaceOffset = 0xC68320; break;
+			case "v1.10.3" : vars.MemorySpaceOffset = 0xC54CB0; break;
+			case "v1.10.2" : vars.MemorySpaceOffset = 0xC53CB0; break;
+			case "v1.10.1" : vars.MemorySpaceOffset = 0xC53B00; break;
+			case "v1.10"   : vars.MemorySpaceOffset = 0xC53AC0; break;
+			case "v1.9.3"  : vars.MemorySpaceOffset = 0xD8C010; break;
+			case "v1.9"    : vars.MemorySpaceOffset = 0xD8AF70; break;
+			case "v1.8.0"  : vars.MemorySpaceOffset = 0xDC8FB0; break;
+			case "v1.7.4"  : vars.MemorySpaceOffset = 0xD91250; break;
+			case "v1.7.1"  : vars.MemorySpaceOffset = 0xD91250; break;
+			case "v1.7"    : vars.MemorySpaceOffset = 0xD90250; break;
+			default        : vars.MemorySpaceOffset = 0       ; break;
 		}
-		if (vars.OffsetToGame != 0)
+		if (vars.MemorySpaceOffset != 0)
 		{
 			vars.EmulatorVersion = fileVersion;
 			version = "PPSSPP detected";
@@ -219,37 +215,37 @@ init
 		vars.ExportWatchers = new MemoryWatcherList();
 		
 		// Game Variables, General
-		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x8B5E114)) { Name = "CurrentVehicle" });																																																														 
-		vars.MemoryWatchers.Add(new MemoryWatcher<float>(new DeepPointer(vars.OffsetToGame, 0x8B5E158)) { Name = "CompletionPoints" });
-		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x8B5E354)) { Name = "CurrentIsland" });
-		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x8B5E45C)) { Name = "RampageState" });
-		vars.MemoryWatchers.Add(new MemoryWatcher<uint>(new DeepPointer(vars.OffsetToGame, 0x8B89D26)) { Name = "PlayerControlLock" });
-		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x8B9289C)) { Name = "GameLoadingFlag" });
+		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.MemorySpaceOffset, 0x8B5E114)) { Name = "CurrentVehicle" });																																																														 
+		vars.MemoryWatchers.Add(new MemoryWatcher<float>(new DeepPointer(vars.MemorySpaceOffset, 0x8B5E158)) { Name = "CompletionPoints" });
+		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.MemorySpaceOffset, 0x8B5E354)) { Name = "CurrentIsland" });
+		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.MemorySpaceOffset, 0x8B5E45C)) { Name = "RampageState" });
+		vars.MemoryWatchers.Add(new MemoryWatcher<uint>(new DeepPointer(vars.MemorySpaceOffset, 0x8B89D26)) { Name = "PlayerControlLock" });
+		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.MemorySpaceOffset, 0x8B9289C)) { Name = "GameLoadingFlag" });
 		
 		// Game Variables, Statistics
-		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x8B5E1A4)) { Name = "MissionAttemptsCounter" });
-		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x8B5E1A8)) { Name = "MissionsPassedCounter" });
-		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x8B5E1FC)) { Name = "SeagullsSnipedCounter" });
+		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.MemorySpaceOffset, 0x8B5E1A4)) { Name = "MissionAttemptsCounter" });
+		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.MemorySpaceOffset, 0x8B5E1A8)) { Name = "MissionsPassedCounter" });
+		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.MemorySpaceOffset, 0x8B5E1FC)) { Name = "SeagullsSnipedCounter" });
 		
 		// Game Variables, Output
-		vars.MemoryWatchers.Add(new StringWatcher(new DeepPointer(vars.OffsetToGame, 0x8B91310), 64) { Name = "CurrentMissionTitle" });
+		vars.MemoryWatchers.Add(new StringWatcher(new DeepPointer(vars.MemorySpaceOffset, 0x8B91310), 64) { Name = "CurrentMissionTitle" });
 		
 		// MAIN.SCM Variables, General
-		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x9F6C4C0)) { Name = "OnMissionFlag" });
+		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.MemorySpaceOffset, 0x9F6C4C0)) { Name = "OnMissionFlag" });
 		
 		// MAIN.SCM Variables, Mission Chains
-		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x9F6BFF4)) { Name = "MariaMissionChainCounter" });
-		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x9F6C2F8)) { Name = "SalvatoreLeoneShoresideMissionChainCounter" });
+		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.MemorySpaceOffset, 0x9F6BFF4)) { Name = "MariaMissionChainCounter" });
+		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.MemorySpaceOffset, 0x9F6C2F8)) { Name = "SalvatoreLeoneShoresideMissionChainCounter" });
 		
 		// MAIN.SCM Variables, Story Missions
-		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x9F6FD2C)) { Name = "TheSicilianGambit_HelicopterBossDefeated" });
+		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.MemorySpaceOffset, 0x9F6FD2C)) { Name = "TheSicilianGambit_HelicopterBossDefeated" });
 		
 		// MAIN.SCM Variables, Collectibles
 		for (int i = 0; i < 16; i++)
-			vars.ExportWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x9F6C294 + 4 * i)));
-		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x9F6C4C4)) { Name = "HiddenPackagesCollected" });
-		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x9F6CCD8)) { Name = "UniqueStuntsCompleted" });
-		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.OffsetToGame, 0x9F6E4B0)) { Name = "RampagesCompleted" });
+			vars.ExportWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.MemorySpaceOffset, 0x9F6C294 + 4 * i)));
+		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.MemorySpaceOffset, 0x9F6C4C4)) { Name = "HiddenPackagesCollected" });
+		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.MemorySpaceOffset, 0x9F6CCD8)) { Name = "UniqueStuntsCompleted" });
+		vars.MemoryWatchers.Add(new MemoryWatcher<int>(new DeepPointer(vars.MemorySpaceOffset, 0x9F6E4B0)) { Name = "RampagesCompleted" });
 	}
 	// MEMORY WATCHERS END
 }
@@ -263,7 +259,7 @@ exit
 	// Set emulator version to unrecognised.
 	version = "unknown";
 	vars.EmulatorVersion = "unknown";
-	vars.OffsetToGame = 0x0;
+	vars.MemorySpaceOffset = 0;
 	
 	vars.DebugOutputVersion("EXIT");
 	vars.DebugOutputVars("EXIT");
@@ -329,7 +325,7 @@ update
 			short currentVehicleModel = 0;
 			
 			// Get the model of the player's current vehicle.
-			memory.ReadPointer((IntPtr)(modules.First().BaseAddress + vars.OffsetToGame), out basePtr);
+			memory.ReadPointer((IntPtr)(modules.First().BaseAddress + vars.MemorySpaceOffset), out basePtr);
 			memory.ReadPointer((IntPtr)(basePtr + 0x8B5E114), false, out currentVehicle);
 			IntPtr vehicleModelPtr = new IntPtr((long)basePtr + (int)currentVehicle);
 			memory.ReadValue<short>((IntPtr)(vehicleModelPtr + 0x58), out currentVehicleModel);
