@@ -1,8 +1,8 @@
-/*	GTA Liberty City Stories Autosplitter (2023.04.06.)
+/*	GTA Liberty City Stories Autosplitter (2023.05.01.)
  *		Made by NABN00B
- *		https://github.com/DavidTamas/LiveSplit.Autosplitters
+ *		https://github.com/NABN00B/LiveSplit.Autosplitters
  *	Currently supports:
- * 		PPSSPP: 64-bit executable, v1.4 and later, standard or Gold
+ * 		PPSSPP: 64-bit executable, v1.4-v1.14.1 and v1.15, standard or Gold
  *		GTA LCS: ULUS10041_1.05_ARTiSAN version ONLY
  *			╔════════════════════════╦═════════════════╦════════╦═══════════╦═════════╦════════╦═════════╦══════════════╦════════════╦══════════╗
  *			║ GAME VERSION           ║ SCRIPT          ║ REGION ║ SERIAL    ║ UMD VER ║ SOURCE ║ SCENE   ║ FILENAME     ║ FILE DATE  ║ CRC32    ║
@@ -169,6 +169,7 @@ init
 		switch (fileVersion)
 		{
 			// Add new versions to the top.
+			case "v1.15"   : vars.MemorySpaceOffset = 0xEFCD20; break;
 			case "v1.14.1" : vars.MemorySpaceOffset = 0xDF5DD8; break;
 			case "v1.14"   : vars.MemorySpaceOffset = 0xDF5C68; break;
 			case "v1.13.2" : vars.MemorySpaceOffset = 0xDF10F0; break;
